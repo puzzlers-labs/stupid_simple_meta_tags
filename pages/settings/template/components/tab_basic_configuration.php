@@ -1,3 +1,4 @@
+<?php $meta_configuration_list = get_option('stupid_simple_meta_tags_basic_settings_meta_configuration_list', []); ?>
 <div>
     <div class="section-description">
         <p>
@@ -11,29 +12,17 @@
             ?
         </div>
     </h1>
-    <form method="post" action="options.php" id="dynamic-inputs-form">
-        <?php
-        settings_fields('my_plugin_settings_group');
-        $inputs = get_option('my_plugin_dynamic_inputs', []);
-        ?>
-        <datalist id="options">
-            <option value="og:type"></option>
-            <option value="og:title"></option>
-            <option value="og:description"></option>
-            <option value="og:url"></option>
-            <option value="og:image"></option>
-            <option value="twitter:card"></option>
-            <option value="twitter:site"></option>
-            <option value="twitter:title"></option>
-            <option value="twitter:image"></option>
-        </datalist>
-    </form>
 
+    <datalist id="stupid_simple_meta_tags_meta_key_options">
+        <?php foreach (STUPID_SIMPLE_META_TAGS_META_KEY_OPTIONS as $option) : ?>
+            <option value="<?php echo $option; ?>"></option>
+        <?php endforeach; ?>
+    </datalist>
 
-    <form method="post">
-        <input type="hidden" id="_wpnonce" name="_wpnonce" value="6ee8644c54"><input type="hidden" name="_wp_http_referer" value="/puzzlers/wp-admin/plugins.php">
+    <form method="post" action="">
+        <?php wp_nonce_field('stupid_simple_meta_tags_basic_settings_action', 'stupid_simple_meta_tags_basic_settings_nonce'); ?>
+
         <div class="tablenav top">
-
             <div class="alignleft actions bulkactions">
                 <label for="bulk-action-selector-top" class="screen-reader-text">Select bulk action</label>
                 <select name="action2" id="bulk-action-selector-bottom">
@@ -54,43 +43,26 @@
             </div>
             <br class="clear">
         </div>
+
         <h2 class="screen-reader-text">Meta Tags List</h2>
         <table class="wp-list-table widefat plugins">
             <thead>
-                <tr>
-                    <td id="cb" class="manage-column column-cb check-column"><input id="cb-select-all-1" type="checkbox">
-                        <label for="cb-select-all-1"><span class="screen-reader-text">Select All</span></label>
-                    </td>
-                    <th scope="col" id="name" class="manage-column column-name column-primary">Order</th>
-                    <th scope="col" id="description" class="manage-column column-description">Type</th>
-                    <th scope="col" id="name" class="manage-column column-name column-primary">Meta Tag Key</th>
-                    <th scope="col" id="description" class="manage-column column-description">Meta Tag Value</th>
-                    <th scope="col" id="description" class="manage-column column-description">Action</th>
-                </tr>
+                <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_column_titles_render(); ?>
             </thead>
 
             <tbody id="dynamic-inputs-list">
-                <?php if (!empty($inputs)) {
-                    foreach ($inputs as $key => $value) {
-                        echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render();
-                    }
-                } else {
-                    echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => 'active']);
-                } ?>
+                <?php if (!empty($meta_configuration_list)): ?>
+                    <?php foreach ($meta_configuration_list as $index => $single_meta_configuration) : ?>
+                        <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['index' => $index, 'form_data' => $single_meta_configuration]); ?>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => 'active', 'index' => count($meta_configuration_list) + 1]); ?>
+                <?php endif; ?>
                 <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => 'template d-none']); ?>
             </tbody>
 
             <tfoot>
-                <tr>
-                    <td id="cb" class="manage-column column-cb check-column"><input id="cb-select-all-1" type="checkbox">
-                        <label for="cb-select-all-1"><span class="screen-reader-text">Select All</span></label>
-                    </td>
-                    <th scope="col" id="name" class="manage-column column-name column-primary">Order</th>
-                    <th scope="col" id="description" class="manage-column column-description">Type</th>
-                    <th scope="col" id="name" class="manage-column column-name column-primary">Meta Tag Name</th>
-                    <th scope="col" id="description" class="manage-column column-description">Meta Tag Value</th>
-                    <th scope="col" id="description" class="manage-column column-description">Action</th>
-                </tr>
+                <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_column_titles_render(); ?>
             </tfoot>
 
         </table>

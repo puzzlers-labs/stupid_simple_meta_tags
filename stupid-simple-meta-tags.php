@@ -42,6 +42,9 @@ require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'hooks/uninstall.php';
 if (!defined('STUPID_SIMPLE_META_TAGS_VERSION')) {
     define('STUPID_SIMPLE_META_TAGS_VERSION', '0.0.0-alpha');
 }
+if (!defined('STUPID_SIMPLE_META_TAGS_META_KEY_OPTIONS')) {
+    define('STUPID_SIMPLE_META_TAGS_META_KEY_OPTIONS', []);
+}
 
 // import common functions.
 require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'includes/common.php';

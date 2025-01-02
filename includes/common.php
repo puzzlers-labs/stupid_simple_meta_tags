@@ -18,6 +18,22 @@ function add_stupid_simple_meta_tags_footer_message() {
     echo '</span>';
 }
 
+function stupid_simple_meta_tags_form_submission_validator() {
+    if (isset($_POST['stupid_simple_meta_tags_basic_settings_nonce'])) {
+        if (!wp_verify_nonce($_POST['stupid_simple_meta_tags_basic_settings_nonce'], 'stupid_simple_meta_tags_basic_settings_action')) {
+            add_action('admin_notices', function () {
+                echo '<div class="notice notice-error is-dismissible"><p>Oops! Something went wrong with your request. Please refresh the page and try submitting the form again.</p></div>';
+            });
+        } else {
+            $sanitized_data = stupid_simple_meta_tags_basic_settings_meta_configuration_list_callback($_POST['stupid_simple_meta_tags_basic_settings_meta_configuration_list']);
+            update_option('stupid_simple_meta_tags_basic_settings_meta_configuration_list', $sanitized_data, true); // true because we need to autoload the option as it is used in the frontend.
+            add_action('admin_notices', function () {
+                echo '<div class="notice notice-success is-dismissible"><p>Great! Your settings were saved without any issues.</p></div>';
+            });
+        }
+    }
+}
+
 function stupid_simple_meta_tags_init() {
 
     add_action('enqueue_block_editor_assets', 'enqueue_custom_editor_plugin');
