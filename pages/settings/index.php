@@ -1,7 +1,6 @@
 <?php
 
-function stupid_simple_meta_tags_settings_init()
-{
+function stupid_simple_meta_tags_settings_init() {
     add_filter('admin_footer_text', 'add_stupid_simple_meta_tags_footer_message');
 
     wp_enqueue_style('common-css', STUPID_SIMPLE_META_TAGS_PLUGIN_URL . 'assets/css/common.css');
@@ -13,30 +12,36 @@ function stupid_simple_meta_tags_settings_init()
 }
 
 //Wordpress uses echo approach instead of returning the template strings. Therefore need to parse the buffer.
-function stupid_simple_meta_tags_settings_render()
-{
+function stupid_simple_meta_tags_settings_render() {
     ob_start();
-    require_once STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/index.php';
+    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/index.php';
     $html = ob_get_contents();
     ob_end_clean();
 
     return $html;
 }
 
-function stupid_simple_meta_tags_settings_tab_basic_configuration_render()
-{
+function stupid_simple_meta_tags_settings_tab_basic_configuration_render() {
     ob_start();
-    require_once STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration.php';
+    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration.php';
     $html = ob_get_contents();
     ob_end_clean();
 
     return $html;
 }
 
-function stupid_simple_meta_tags_settings_tab_advanced_configuration_render()
-{
+function stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render($stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render_config = []) {
     ob_start();
-    require_once STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_advanced_configuration.php';
+    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_row.php';
+    $html = ob_get_contents();
+    ob_end_clean();
+
+    return $html;
+}
+
+function stupid_simple_meta_tags_settings_tab_advanced_configuration_render() {
+    ob_start();
+    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_advanced_configuration.php';
     $html = ob_get_contents();
     ob_end_clean();
 

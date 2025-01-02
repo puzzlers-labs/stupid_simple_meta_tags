@@ -1,7 +1,6 @@
 <?php
 
-function stupid_simple_meta_tags_feedback_init()
-{
+function stupid_simple_meta_tags_feedback_init() {
     add_filter('admin_footer_text', 'add_stupid_simple_meta_tags_footer_message');
 
     wp_enqueue_script('settings-js', STUPID_SIMPLE_META_TAGS_PLUGIN_URL . 'assets/js/settings.js');
@@ -12,12 +11,11 @@ function stupid_simple_meta_tags_feedback_init()
 }
 
 
-function stupid_simple_meta_tags_feedback_render()
-{
+function stupid_simple_meta_tags_feedback_render() {
 
     //Wordpress uses echo approach instead of returning the template strings. Therefore need to parse the buffer.
     ob_start();
-    require_once STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/feedback/template.php';
+    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/feedback/template.php';
     $html = ob_get_contents();
     ob_end_clean();
 

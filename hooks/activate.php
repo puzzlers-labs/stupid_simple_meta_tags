@@ -7,4 +7,5 @@
  * @author Puzzlers Labs Pvt. Ltd. <tech@puzzlers-labs.com>
  */
 
-function stupid_simple_meta_tags_activated() {}
+function stupid_simple_meta_tags_activated() {
+}
