@@ -10,19 +10,19 @@ $form_data          = $stupid_simple_meta_tags_settings_tab_basic_configuration_
         <input type="checkbox" name="checked[]" class="mt-8" />
     </th>
     <td class="plugin-title column-primary">
-        <input type="number" name="stupid_simple_meta_tags_basic_settings_meta_configuration_list[<?php echo $index; ?>][order]" min="0" max="9999" maxlength="4" size="4" value="<?php echo $form_data['order']; ?>" />
+        <input class="order-input" type="number" min="0" max="9999" maxlength="4" size="4" value="<?php echo $form_data['order']; ?>" name="stupid_simple_meta_tags_basic_settings_meta_configuration_list[<?php echo $index; ?>][order]" />
     </td>
     <td class="plugin-title column-primary">
-        <select name="stupid_simple_meta_tags_basic_settings_meta_configuration_list[<?php echo $index; ?>][type]">
+        <select class="type-select" name="stupid_simple_meta_tags_basic_settings_meta_configuration_list[<?php echo $index; ?>][type]">
             <option value=" text">Name</option>
             <option value="textarea">Property</option>
         </select>
     </td>
     <td class="column-description desc">
-        <input class="regular-text" type="text" list="stupid_simple_meta_tags_basic_settings_meta_configuration_list" name="stupid_simple_meta_tags_basic_settings_meta_configuration_list[<?php echo $index; ?>][key]" placeholder="Type or select an option" value="<?php echo $form_data['key']; ?>" />
+        <input class="regular-text key-input" type="text" list="stupid_simple_meta_tags_basic_settings_meta_configuration_list" name="stupid_simple_meta_tags_basic_settings_meta_configuration_list[<?php echo $index; ?>][key]" placeholder="Type or select an option" value="<?php echo $form_data['key']; ?>" />
     </td>
     <td class="column-auto-updates">
-        <input type="text" name="stupid_simple_meta_tags_basic_settings_meta_configuration_list[<?php echo $index; ?>][value]" class="regular-text" value="<?php echo $form_data['value']; ?>" />
+        <input class="regular-text value-input" type="text" name="stupid_simple_meta_tags_basic_settings_meta_configuration_list[<?php echo $index; ?>][value]" value="<?php echo $form_data['value']; ?>" />
     </td>
     <td>
         <p class="mt-4 mb-2"><a href="plugins.php?action=delete-selected&amp;checked%5B0%5D=hello.php&amp;plugin_status=all&amp;paged=1&amp;s&amp;_wpnonce=6ee8644c54" id="delete-hello-dolly" class="delete">
