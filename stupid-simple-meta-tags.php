@@ -12,7 +12,7 @@ ini_set('display_errors', 1);
  * Plugin Logo:        https://puzzlers-labs.com/assets/images/logo/Logo%20cropped.png
  * Requires at least:  5.2
  * Requires PHP:       7.2
- * Version:            1.0.0
+ * Version:            0.1.0
  * Author:             Puzzlers Labs Pvt. Ltd.
  * Text Domain:        stupid_simple_meta_tags
  * Author URI:         https://puzzlers-labs.com/
@@ -42,6 +42,9 @@ require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'hooks/uninstall.php';
 if (!defined('STUPID_SIMPLE_META_TAGS_VERSION')) {
     define('STUPID_SIMPLE_META_TAGS_VERSION', '0.0.0-alpha');
 }
+
+// import common functions.
+require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'includes/common.php';
 
 register_activation_hook(STUPID_SIMPLE_META_TAGS_PLUGIN_FILE,   'stupid_simple_meta_tags_activated');
 register_deactivation_hook(STUPID_SIMPLE_META_TAGS_PLUGIN_FILE, 'stupid_simple_meta_tags_deactivated');

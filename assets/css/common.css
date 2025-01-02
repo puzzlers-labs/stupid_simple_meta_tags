@@ -1,0 +1,7 @@
+#wpfooter > #footer-upgrade {
+    display: none !important;
+}
+
+#wpfooter > #footer-left {
+    float: initial !important;
+}
