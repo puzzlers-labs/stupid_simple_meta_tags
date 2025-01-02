@@ -25,3 +25,11 @@
 .mb-2 {
     margin-bottom: 2px !important;
 }
+
+.text-red {
+    color: #b32d2e !important;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}

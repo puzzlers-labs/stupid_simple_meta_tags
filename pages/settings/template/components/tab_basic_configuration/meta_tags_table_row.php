@@ -1,11 +1,11 @@
 <?php
 $row_class          = $stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render_config['row_class'] ?? 'inactive';
 $index              = $stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render_config['index'] ?? 0;
-$default_form_data  = ['order' => 0, 'type'  => 'text', 'key'   => '', 'value' => ''];
+$default_form_data  = ['order' => 0, 'type' => 'text', 'key' => '', 'value' => ''];
 $form_data          = $stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render_config['form_data'] ?? $default_form_data;
 ?>
 
-<tr class="<?php echo $row_class; ?>">
+<tr class="meta-tags-list-row <?php echo $row_class; ?>">
     <th scope="row" class="check-column">
         <input type="checkbox" name="checked[]" class="mt-8" />
     </th>
@@ -25,8 +25,8 @@ $form_data          = $stupid_simple_meta_tags_settings_tab_basic_configuration_
         <input class="regular-text value-input" type="text" name="stupid_simple_meta_tags_basic_settings_meta_configuration_list[<?php echo $index; ?>][value]" value="<?php echo $form_data['value']; ?>" />
     </td>
     <td>
-        <p class="mt-4 mb-2"><a href="plugins.php?action=delete-selected&amp;checked%5B0%5D=hello.php&amp;plugin_status=all&amp;paged=1&amp;s&amp;_wpnonce=6ee8644c54" id="delete-hello-dolly" class="delete">
-                Delete
-            </a></p>
+        <p class="delete mt-4 mb-2 text-red cursor-pointer" onclick="deleteRow(this);">
+            Delete
+        </p>
     </td>
 </tr>
