@@ -34,12 +34,8 @@
                 <input type="submit" name="bulk_action" id="doaction" class="button action" value="Apply">
                 <button type="button" id="add-input" class="button">Add Row</button>
             </div>
-            <div class="tablenav-pages one-page"><span class="displaying-num">3 items</span>
-                <span class="pagination-links"><span class="tablenav-pages-navspan button disabled" aria-hidden="true">«</span>
-                    <span class="tablenav-pages-navspan button disabled" aria-hidden="true">‹</span>
-                    <span class="paging-input"><label for="current-page-selector" class="screen-reader-text">Current Page</label><input class="current-page" id="current-page-selector" type="text" name="paged" value="1" size="1" aria-describedby="table-paging"><span class="tablenav-paging-text"> of <span class="total-pages">1</span></span></span>
-                    <span class="tablenav-pages-navspan button disabled" aria-hidden="true">›</span>
-                    <span class="tablenav-pages-navspan button disabled" aria-hidden="true">»</span></span>
+            <div class="tablenav-pages one-page">
+                <span class="displaying-num"><?php echo count($meta_configuration_list); ?> items</span>
             </div>
             <br class="clear">
         </div>
@@ -58,7 +54,7 @@
                 <?php else : ?>
                     <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => 'active', 'index' => count($meta_configuration_list) + 1]); ?>
                 <?php endif; ?>
-                <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => 'template d-none']); ?>
+                <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => 'template d-none inactive']); ?>
             </tbody>
 
             <tfoot>
@@ -79,12 +75,8 @@
                 <input type="submit" name="bulk_action" id="doaction2" class="button action" value="Apply">
                 <button type="button" onclick="addRow();" class="button">Add Row</button>
             </div>
-            <div class="tablenav-pages one-page"><span class="displaying-num">3 items</span>
-                <span class="pagination-links"><span class="tablenav-pages-navspan button disabled" aria-hidden="true">«</span>
-                    <span class="tablenav-pages-navspan button disabled" aria-hidden="true">‹</span>
-                    <span class="screen-reader-text">Current Page</span><span id="table-paging" class="paging-input"><span class="tablenav-paging-text">1 of <span class="total-pages">1</span></span></span>
-                    <span class="tablenav-pages-navspan button disabled" aria-hidden="true">›</span>
-                    <span class="tablenav-pages-navspan button disabled" aria-hidden="true">»</span></span>
+            <div class="tablenav-pages one-page">
+                <span class="displaying-num"><?php echo count($meta_configuration_list); ?> items</span>
             </div>
             <br class="clear">
         </div>

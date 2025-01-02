@@ -1,3 +1,6 @@
 <div class="wrap">
-    <h1>Stupid Simple Meta Tags (SSMT) Settings Advanced</h1>
+    <p>This section allows you to manage and customize the settings for dynamic inputs. You can add, remove, or edit entries as needed, ensuring flexibility and ease of use. Each tab stores its own unique list of inputs, giving you complete control over your configuration.
+    <div class="notice notice-warning is-dismissible">
+        <p><strong>Work in Progress:</strong> This section is currently under development. Some features may not function as expected.</p>
+    </div>
 </div>
