@@ -5,3 +5,11 @@
 #wpfooter > #footer-left {
     float: initial !important;
 }
+
+.d-none {
+    display: none !important;
+}
+
+.ps-0 {
+    padding-left: 0 !important;
+}
