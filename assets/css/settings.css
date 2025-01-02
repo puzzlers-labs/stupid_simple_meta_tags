@@ -1,13 +1,3 @@
-.dynamic-input-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.dynamic-input-row input {
-    margin-right: 10px;
-}
-
 .help-icon {
     position: relative;
     display: inline-block;
@@ -54,4 +44,8 @@
 .help-icon:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
+}
+
+.ps-0 {
+    padding-left: 0 !important;
 }
