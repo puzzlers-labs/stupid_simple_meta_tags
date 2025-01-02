@@ -5,6 +5,16 @@
  * @author Puzzlers Labs Pvt. Ltd. <tech@puzzlers-labs.com>
  */
 
+
+
+function add_stupid_simple_meta_tags_footer_message()
+{
+    echo '<span id="footer-thankyou">Thank you for using Stupid Simple Meta Tags (SSMT)</span>';
+    echo '<span>&nbsp;&#124;&nbsp;</span>';
+    echo '<span>Copyright &copy; <a href="https://puzzlers-labs.com" target="_blank">Puzzlers Labs Pvt. Ltd.</a> All rights reserved</span>';
+    echo '<span class="alignright">SSMT version v' . esc_attr(STUPID_SIMPLE_META_TAGS_VERSION) . '</span>';
+}
+
 function stupid_simple_meta_tags_init()
 {
 
