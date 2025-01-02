@@ -39,6 +39,15 @@ function stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_tabl
     return $html;
 }
 
+function stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_column_titles_render() {
+    ob_start();
+    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_column_titles.php';
+    $html = ob_get_contents();
+    ob_end_clean();
+
+    return $html;
+}
+
 function stupid_simple_meta_tags_settings_tab_advanced_configuration_render() {
     ob_start();
     require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_advanced_configuration.php';
@@ -46,4 +55,20 @@ function stupid_simple_meta_tags_settings_tab_advanced_configuration_render() {
     ob_end_clean();
 
     return $html;
+}
+
+function stupid_simple_meta_tags_basic_settings_meta_configuration_list_callback($input) {
+    if (!is_array($input)) {
+        return [];
+    }
+    $clean_data = array_map(function ($row) {
+        return [
+            'order' => intval($row['order'] ?? 0),
+            'type'  => sanitize_text_field($row['type'] ?? ''),
+            'key'   => sanitize_text_field($row['key'] ?? ''),
+            'value' => sanitize_text_field($row['value'] ?? ''),
+        ];
+    }, $input);
+
+    return $clean_data;
 }
