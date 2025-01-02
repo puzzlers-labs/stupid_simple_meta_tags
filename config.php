@@ -1,0 +1,3 @@
+<?php
+
+define('STUPID_SIMPLE_META_TAGS_VERSION', '0.1.0');

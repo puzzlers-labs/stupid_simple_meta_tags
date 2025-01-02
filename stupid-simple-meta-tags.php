@@ -1,5 +1,10 @@
 <?php
 
+define('WP_DEBUG', true);
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 /**
  * Plugin Name:        Stupid Simple Meta Tags (SSMT)
  * Plugin URI:         https://puzzlers-labs.com/
@@ -21,29 +26,25 @@ if (!defined('WPINC')) {
     die('Uh oh, this is not a Wordpress environment.');
 }
 
-// Define the plugin version.
-define('STUPID_SIMPLE_META_TAGS_VERSION', '1.0.0');
+define('STUPID_SIMPLE_META_TAGS_PLUGIN_FILE', __FILE__);
+define('STUPID_SIMPLE_META_TAGS_PLUGIN_PATH', plugin_dir_path(STUPID_SIMPLE_META_TAGS_PLUGIN_FILE));
+define('STUPID_SIMPLE_META_TAGS_PLUGIN_URL', plugin_dir_url(STUPID_SIMPLE_META_TAGS_PLUGIN_FILE));
 
-/**
- * Handlers for the activation and deactivation of the plugin.
- */
-function activate_stupid_simple_meta_tags()
-{
-    require_once plugin_dir_path(__FILE__) . 'includes/activator.php';
-    stupid_simple_meta_tags_activate();
+require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'config.php';
+
+require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'hooks/activate.php';
+require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'hooks/deactivate.php';
+require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'hooks/initialize.php';
+require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'hooks/install.php';
+require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'hooks/uninstall.php';
+
+// Give fallback defines.
+if (!defined('STUPID_SIMPLE_META_TAGS_VERSION')) {
+    define('STUPID_SIMPLE_META_TAGS_VERSION', '0.0.0-alpha');
 }
 
-function deactivate_stupid_simple_meta_tags()
-{
-    require_once plugin_dir_path(__FILE__) . 'includes/deactivator.php';
-    stupid_simple_meta_tags_deactivate();
-}
+register_activation_hook(STUPID_SIMPLE_META_TAGS_PLUGIN_FILE,   'stupid_simple_meta_tags_activated');
+register_deactivation_hook(STUPID_SIMPLE_META_TAGS_PLUGIN_FILE, 'stupid_simple_meta_tags_deactivated');
+register_uninstall_hook(STUPID_SIMPLE_META_TAGS_PLUGIN_FILE,    'stupid_simple_meta_tags_uninstalled');
 
-register_activation_hook(__FILE__, 'activate_stupid_simple_meta_tags');
-register_deactivation_hook(__FILE__, 'deactivate_stupid_simple_meta_tags');
-
-
-require plugin_dir_path(__FILE__) . 'includes/common.php';
-require plugin_dir_path(__FILE__) . 'admin/index.php';
-
-stupid_simple_meta_tags_init();
+stupid_simple_meta_tags_initialized();
