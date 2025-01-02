@@ -1,9 +1,4 @@
 <div class="wrap">
-    <h1>Stupid Simple Meta Tags (SSMT) Settings</h1>
-    <h2 class="nav-tab-wrapper">
-        <a href="?page=stupid_simple_meta_tags_settings&tab=tab1" class="nav-tab nav-tab-active <?php echo $active_tab === 'tab1' ? 'nav-tab-active' : ''; ?>">Basic Configuration</a>
-        <a href="?page=stupid_simple_meta_tags_settings&tab=tab2" class="nav-tab <?php echo $active_tab === 'tab2' ? 'nav-tab-active' : ''; ?>">Advanced Configuration</a>
-    </h2>
     <div class="section-description">
         <p>
             This section allows you to manage and customize the settings for dynamic inputs. You can add, remove, or edit entries as needed, ensuring flexibility and ease of use. Each tab stores its own unique list of inputs, giving you complete control over your configuration.
@@ -159,6 +154,4 @@
         </div>
         <?php submit_button(); ?>
     </form>
-
-
 </div>
