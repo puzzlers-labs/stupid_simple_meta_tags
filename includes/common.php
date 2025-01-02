@@ -5,8 +5,6 @@
  * @author Puzzlers Labs Pvt. Ltd. <tech@puzzlers-labs.com>
  */
 
-
-
 function add_stupid_simple_meta_tags_footer_message() {
     echo '<span id="footer-thankyou">Thank you for using Stupid Simple Meta Tags (SSMT)</span>';
     echo '<span>&nbsp;&#124;&nbsp;</span>';
@@ -34,23 +32,23 @@ function stupid_simple_meta_tags_form_submission_validator() {
     }
 }
 
-function stupid_simple_meta_tags_init() {
+// function stupid_simple_meta_tags_init() {
 
-    add_action('enqueue_block_editor_assets', 'enqueue_custom_editor_plugin');
+//     add_action('enqueue_block_editor_assets', 'enqueue_custom_editor_plugin');
 
-    add_action('wp_head', 'hook_javascript');
-}
+//     add_action('wp_head', 'hook_javascript');
+// }
 
-function enqueue_custom_editor_plugin() {
-    wp_enqueue_script(
-        'custom-editor-plugin',
-        plugins_url('custom-editor-plugin.js', __FILE__),
-        array('wp-plugins', 'wp-edit-post', 'wp-components', 'wp-element', 'wp-data'),
-        '1.0',
-        true
-    );
-}
+// function enqueue_custom_editor_plugin() {
+//     wp_enqueue_script(
+//         'custom-editor-plugin',
+//         plugins_url('custom-editor-plugin.js', __FILE__),
+//         array('wp-plugins', 'wp-edit-post', 'wp-components', 'wp-element', 'wp-data'),
+//         '1.0',
+//         true
+//     );
+// }
 
-function hook_javascript() {
-    var_dump(get_post_meta(get_the_ID()));
-}
+// function hook_javascript() {
+//     var_dump(get_post_meta(get_the_ID()));
+// }

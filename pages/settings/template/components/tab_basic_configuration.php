@@ -35,7 +35,12 @@
                 <button type="button" id="add-input" class="button">Add Row</button>
             </div>
             <div class="tablenav-pages one-page">
-                <span class="displaying-num"><?php echo count($meta_configuration_list); ?> items</span>
+                <span class="displaying-num">
+                    <span class="total-row-count">
+                        <?php echo count($meta_configuration_list); ?>
+                    </span>
+                    items
+                </span>
             </div>
             <br class="clear">
         </div>
@@ -47,6 +52,7 @@
             </thead>
 
             <tbody id="dynamic-inputs-list">
+                <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => 'd-none inactive', 'is_template' => true]); ?>
                 <?php if (!empty($meta_configuration_list)): ?>
                     <?php foreach ($meta_configuration_list as $index => $single_meta_configuration) : ?>
                         <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['index' => $index, 'form_data' => $single_meta_configuration]); ?>
@@ -54,7 +60,6 @@
                 <?php else : ?>
                     <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => 'active', 'index' => count($meta_configuration_list) + 1]); ?>
                 <?php endif; ?>
-                <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => 'template d-none inactive']); ?>
             </tbody>
 
             <tfoot>
@@ -76,7 +81,12 @@
                 <button type="button" onclick="addRow();" class="button">Add Row</button>
             </div>
             <div class="tablenav-pages one-page">
-                <span class="displaying-num"><?php echo count($meta_configuration_list); ?> items</span>
+                <span class="displaying-num">
+                    <span class="total-row-count">
+                        <?php echo count($meta_configuration_list); ?>
+                    </span>
+                    items
+                </span>
             </div>
             <br class="clear">
         </div>
