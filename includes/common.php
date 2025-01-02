@@ -24,7 +24,7 @@ function stupid_simple_meta_tags_form_submission_validator() {
             });
         } else {
             $sanitized_data = stupid_simple_meta_tags_basic_settings_meta_configuration_list_callback($_POST['stupid_simple_meta_tags_basic_settings_meta_configuration_list']);
-            update_option('stupid_simple_meta_tags_basic_settings_meta_configuration_list', $sanitized_data, true); // true because we need to autoload the option as it is used in the frontend.
+            update_option('stupid_simple_meta_tags_basic_settings_meta_configuration_list', $sanitized_data);
             add_action('admin_notices', function () {
                 echo '<div class="notice notice-success is-dismissible"><p>Great! Your settings were saved without any issues.</p></div>';
             });

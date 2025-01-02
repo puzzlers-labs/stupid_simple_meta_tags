@@ -18,12 +18,13 @@ $form_data          = $stupid_simple_meta_tags_settings_tab_basic_configuration_
     </td>
     <td class="plugin-title column-primary">
         <select class="type-select" name="stupid_simple_meta_tags_basic_settings_meta_configuration_list[<?php echo $index; ?>][type]" <?php if ($is_template): ?>disabled<?php endif; ?>>
-            <option value=" text">Name</option>
-            <option value="textarea">Property</option>
+            <option value="name" <?php if ($form_data['type'] === 'name'): ?>selected<?php endif; ?>>Name</option>
+            <option value="property" <?php if ($form_data['type'] === 'property'): ?>selected<?php endif; ?>>Property</option>
+            <option value="direct" <?php if ($form_data['type'] === 'direct'): ?>selected<?php endif; ?>>Direct</option>
         </select>
     </td>
     <td class="column-description desc">
-        <input class="regular-text key-input" type="text" list="stupid_simple_meta_tags_basic_settings_meta_configuration_list" name="stupid_simple_meta_tags_basic_settings_meta_configuration_list[<?php echo $index; ?>][key]" placeholder="Type or select an option" value="<?php echo $form_data['key']; ?>" <?php if ($is_template): ?>disabled<?php endif; ?> />
+        <input class="regular-text key-input" type="text" list="stupid_simple_meta_tags_meta_key_options" name="stupid_simple_meta_tags_basic_settings_meta_configuration_list[<?php echo $index; ?>][key]" placeholder="Type or select an option" value="<?php echo $form_data['key']; ?>" <?php if ($is_template): ?>disabled<?php endif; ?> />
     </td>
     <td class="column-auto-updates">
         <input class="regular-text value-input" type="text" name="stupid_simple_meta_tags_basic_settings_meta_configuration_list[<?php echo $index; ?>][value]" value="<?php echo $form_data['value']; ?>" <?php if ($is_template): ?>disabled<?php endif; ?> />
