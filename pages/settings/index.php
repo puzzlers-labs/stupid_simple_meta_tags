@@ -48,6 +48,24 @@ function stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_tabl
     return $html;
 }
 
+function stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_count_render($stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_count) {
+    ob_start();
+    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_count.php';
+    $html = ob_get_contents();
+    ob_end_clean();
+
+    return $html;
+}
+
+function stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_bulk_actions() {
+    ob_start();
+    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_bulk_actions.php';
+    $html = ob_get_contents();
+    ob_end_clean();
+
+    return $html;
+}
+
 function stupid_simple_meta_tags_settings_tab_advanced_configuration_render() {
     ob_start();
     require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_advanced_configuration.php';
@@ -117,6 +135,8 @@ function stupid_simple_meta_tags_basic_settings_meta_configuration_list_validate
  * Sanitize the form submission data.
  * 1. If the data is not an array, do not save it.
  * 2. Do not save empty rows.
+ * 3. Sanitize the order, type, key and value.
+ * 4. Sort the data based on the order in descending order.
  */
 function stupid_simple_meta_tags_basic_settings_meta_configuration_list_sanitize($input) {
     if (!is_array($input)) {

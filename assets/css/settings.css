@@ -45,3 +45,11 @@
     visibility: visible;
     opacity: 1;
 }
+
+tr.meta-tags-list-row.hide th, tr.meta-tags-list-row.hide td {
+    background-color: #fff4e5 !important;
+}
+
+.plugins .hide th.check-column {
+    border-left: 4px solid #dba617 !important;
+}
