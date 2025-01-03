@@ -1,11 +1,10 @@
 <?php
-$meta_configuration_list = $_POST['stupid_simple_meta_tags_basic_settings_meta_configuration_list'] ?? get_option('stupid_simple_meta_tags_basic_settings_meta_configuration_list', []);
+$meta_configuration_list = $_POST['ssmt_basic_settings_meta_configuration_list'] ?? get_option('ssmt_basic_settings_meta_configuration_list', []);
 ?>
 <div class="wrap">
-    <h1>Developed By:</h1>
     <div style="text-align: center; margin-bottom: 20px;">
         <a href="https://puzzlers-labs.com" target="_blank">
-            <img src="<?php echo STUPID_SIMPLE_META_TAGS_PLUGIN_URL . 'assets/images/puzzlers_labs_logo.png'; ?>" alt="Puzzlers Labs Logo" style="max-width: 200px;">
+            <img src="<?php echo SSMT_PLUGIN_URL . 'assets/images/ssmt_mini_banner.png'; ?>" alt="Puzzlers Labs Logo" style="max-width: 600px;">
         </a>
     </div>
 
@@ -28,24 +27,32 @@ $meta_configuration_list = $_POST['stupid_simple_meta_tags_basic_settings_meta_c
         <tbody>
             <tr>
                 <td><strong>Plugin Version:</strong></td>
-                <td>1.0.0</td>
+                <td>
+                    <?php echo esc_html(SSMT_VERSION); ?>
+                    <span style="color: green; margin-left: 5px;">
+                        &#10003;
+                    </span>
+                    <a href="puzzlers-labs.com"><i>(Check for updates)</i></a>
+                </td>
             </tr>
             <tr>
                 <td><strong>SHA:</strong></td>
                 <td>
-                    <?php echo esc_html(stupid_simple_meta_tags_feedback_compute_plugin_sha()); ?>
+                    <?php echo esc_html(ssmt_feedback_compute_plugin_sha()); ?>
                     <span style="color: green; margin-left: 5px;">
                         &#10003;
                     </span>
+                    <a href="puzzlers-labs.com"><i>(Verify manually)</i></a>
                 </td>
             </tr>
             <tr>
                 <td><strong>License Status:</strong></td>
                 <td>
-                    <?php echo esc_html(get_option('my_plugin_license_status', 'Inactive')); ?>
+                    <?php echo esc_html(get_option('my_plugin_license_status', 'Unlicensed')); ?>
                     <span style="color: red; margin-left: 5px;">
                         &times;
                     </span>
+                    <a href="puzzlers-labs.com"><i>(Register for free)</i></a>
                 </td>
             </tr>
         </tbody>

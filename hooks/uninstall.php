@@ -7,5 +7,5 @@
  * @author Puzzlers Labs Pvt. Ltd. <tech@puzzlers-labs.com>
  */
 
-function stupid_simple_meta_tags_uninstalled() {
+function ssmt_uninstalled() {
 }
