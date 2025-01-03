@@ -1,4 +1,4 @@
-const addRow = () => {
+const addRow = (namePrefix) => {
     const inputList = document.querySelector('#dynamic-inputs-list');
     const rowCount = inputList.children.length;
     const newRowIndex  = rowCount + 1;
