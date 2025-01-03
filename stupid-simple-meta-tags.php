@@ -14,7 +14,7 @@ ini_set('display_errors', 1);
  * Requires PHP:       7.2
  * Version:            0.1.0
  * Author:             Puzzlers Labs Pvt. Ltd.
- * Text Domain:        stupid_simple_meta_tags
+ * Text Domain:        ssmt
  * Author URI:         https://puzzlers-labs.com/
  * License:            Expat License
  * License URI:        https://directory.fsf.org/wiki/License:Expat	
