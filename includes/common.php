@@ -22,11 +22,16 @@ function stupid_simple_meta_tags_form_submission_validator() {
             add_action('admin_notices', function () {
                 echo '<div class="notice notice-error is-dismissible"><p>Oops! Something went wrong with your request. Please refresh the page and try submitting the form again.</p></div>';
             });
-        } else {
-            $sanitized_data = stupid_simple_meta_tags_basic_settings_meta_configuration_list_callback($_POST['stupid_simple_meta_tags_basic_settings_meta_configuration_list']);
+        } elseif (stupid_simple_meta_tags_basic_settings_meta_configuration_list_validate($_POST['stupid_simple_meta_tags_basic_settings_meta_configuration_list'])) {
+            $sanitized_data = stupid_simple_meta_tags_basic_settings_meta_configuration_list_sanitize($_POST['stupid_simple_meta_tags_basic_settings_meta_configuration_list']);
             update_option('stupid_simple_meta_tags_basic_settings_meta_configuration_list', $sanitized_data);
             add_action('admin_notices', function () {
                 echo '<div class="notice notice-success is-dismissible"><p>Great! Your settings were saved without any issues.</p></div>';
+            });
+            unset($_POST['stupid_simple_meta_tags_basic_settings_meta_configuration_list']);
+        } else {
+            add_action('admin_notices', function () {
+                echo '<div class="notice notice-error is-dismissible"><p>Error: The input provided is invalid. Please check and try again.</p></div>';
             });
         }
     }

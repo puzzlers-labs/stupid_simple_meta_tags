@@ -1,4 +1,11 @@
-<?php $meta_configuration_list = get_option('stupid_simple_meta_tags_basic_settings_meta_configuration_list', []); ?>
+<?php
+$meta_configuration_list        = $_POST['stupid_simple_meta_tags_basic_settings_meta_configuration_list'] ?? get_option('stupid_simple_meta_tags_basic_settings_meta_configuration_list', []);
+$validation_error_row_indexes   = get_transient('stupid_simple_meta_tags_basic_settings_meta_configuration_list_validation_error_row_indexes');
+$validation_error_row_indexes   = is_array($validation_error_row_indexes) ? $validation_error_row_indexes : [];
+
+delete_transient('stupid_simple_meta_tags_basic_settings_meta_configuration_list_validation_error_row_indexes');
+?>
+
 <div>
     <div class="section-description">
         <p>
@@ -31,7 +38,7 @@
                     <option value="deactivate-selected">Show</option>
                     <option value="delete-selected">Delete</option>
                 </select>
-                <input type="submit" name="bulk_action" id="doaction" class="button action" value="Apply">
+                <input type="button" name="bulk_action" id="doaction" class="button action" value="Apply">
                 <button type="button" id="add-input" class="button">Add Row</button>
             </div>
             <div class="tablenav-pages one-page">
@@ -55,7 +62,10 @@
                 <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => 'd-none inactive', 'is_template' => true]); ?>
                 <?php if (!empty($meta_configuration_list)): ?>
                     <?php foreach ($meta_configuration_list as $index => $single_meta_configuration) : ?>
-                        <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['index' => $index, 'form_data' => $single_meta_configuration]); ?>
+                        <?php $is_active = $single_meta_configuration['order'] >= 0; ?>
+                        <?php $is_error = in_array($index, $validation_error_row_indexes); ?>
+                        <?php $row_class = $is_error ? 'paused' : ($is_active ? 'active' : 'inactive'); ?>
+                        <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => $row_class, 'index' => $index, 'form_data' => $single_meta_configuration]); ?>
                     <?php endforeach; ?>
                 <?php else : ?>
                     <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => 'active', 'index' => count($meta_configuration_list) + 1]); ?>
@@ -77,7 +87,7 @@
                     <option value="deactivate-selected">Show</option>
                     <option value="delete-selected">Delete</option>
                 </select>
-                <input type="submit" name="bulk_action" id="doaction2" class="button action" value="Apply">
+                <input type="button" name="bulk_action" id="doaction2" class="button action" value="Apply">
                 <button type="button" onclick="addRow();" class="button">Add Row</button>
             </div>
             <div class="tablenav-pages one-page">

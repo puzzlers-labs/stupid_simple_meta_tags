@@ -15,9 +15,7 @@ function stupid_simple_meta_tags_initialized() {
 
     add_action('admin_menu', 'stupid_simple_meta_tags_setup_menu');
 
-    register_setting('stupid_simple_meta_tags_basic_settings', 'stupid_simple_meta_tags_basic_settings_meta_configuration_list', [
-        'sanitize_callback' => 'stupid_simple_meta_tags_basic_settings_meta_configuration_list_callback',
-    ]);
+    register_setting('stupid_simple_meta_tags_basic_settings', 'stupid_simple_meta_tags_basic_settings_meta_configuration_list');
 
     add_action('admin_init', 'stupid_simple_meta_tags_form_submission_validator');
 }

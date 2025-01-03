@@ -19,6 +19,8 @@ const addRow = () => {
     newRow.querySelector('.value-input').removeAttribute('disabled');
 
     inputList.appendChild(newRow);
+
+    metaTypeChange(newRow.querySelector('.type-select'));
     updateTotalCount();
 }
 
@@ -63,11 +65,13 @@ const metaTypeChange = (element) => {
     const spacerDataCell = row.querySelector('.column-spacer');
     if (element.value === 'direct') {
         keyInput.setAttribute('disabled', 'disabled');
+        keyInput.setAttribute('required', false);
         keyInput.classList.add('d-none');
 
         valueInput.setAttribute('disabled', 'disabled');
         valueInput.classList.add('d-none');
 
+        directValueInput.setAttribute('required', 'required');
         directValueInput.removeAttribute('disabled');
         directValueInput.classList.remove('d-none');
 
@@ -76,6 +80,7 @@ const metaTypeChange = (element) => {
         spacerDataCell.setAttribute("colSpan", "1");
 
     } else {
+        keyInput.setAttribute('required', 'required');
         keyInput.removeAttribute('disabled');
         keyInput.classList.remove('d-none');
 
@@ -83,6 +88,7 @@ const metaTypeChange = (element) => {
         valueInput.classList.remove('d-none');
 
         directValueInput.setAttribute('disabled', 'disabled');
+        directValueInput.setAttribute('required', false);
         directValueInput.classList.add('d-none');
 
         keyDataCell.setAttribute("colSpan", "1");
@@ -93,7 +99,8 @@ const metaTypeChange = (element) => {
 
 const init = () => {
     const typeSelects = document.querySelectorAll('.type-select');
-    typeSelects.forEach((element) => {
+    typeSelects.forEach((element, idx) => {
+        if (idx === 0) { return; }
         metaTypeChange(element);
     });
 }

@@ -57,12 +57,73 @@ function stupid_simple_meta_tags_settings_tab_advanced_configuration_render() {
     return $html;
 }
 
-function stupid_simple_meta_tags_basic_settings_meta_configuration_list_callback($input) {
+/**
+ * Validate the form submission data.
+ * 1. The data should be an array.
+ * 2. Each row should be an array.
+ * 3. The row should have order property and it's value between -1 and 9999.
+ * 4. Each row should have a type property and it's value as any of name, property, direct.
+ * 5. If the type is name or property, the row should have a key property.
+ * 6. If the type is direct, the row should have a value property.
+ * 7. The length of the key and value should be less than 255 characters.
+ */
+function stupid_simple_meta_tags_basic_settings_meta_configuration_list_validate($input) {
+    $validation_error_row_indexes = [];
+    $is_valid = true;
+    if (!is_array($input)) {
+        $is_valid = false;
+    }
+    foreach ($input as $index => $single_row) {
+        if (!is_array($single_row)) {
+            $validation_error_row_indexes[] = $index;
+            $is_valid = false;
+        }
+        if (!isset($single_row['order']) || !is_numeric($single_row['order']) || $single_row['order'] < -1 || $single_row['order'] > 9999) {
+            $validation_error_row_indexes[] = $index;
+            $is_valid = false;
+        }
+        if (!isset($single_row['type']) || !in_array($single_row['type'], ['name', 'property', 'direct'])) {
+            $validation_error_row_indexes[] = $index;
+            $is_valid = false;
+        }
+
+        if ($single_row['type'] === 'name' || $single_row['type'] === 'property') {
+            if (!isset($single_row['key']) || empty($single_row['key'])) {
+                $validation_error_row_indexes[] = $index;
+                $is_valid = false;
+            }
+        } else if ($single_row['type'] === 'direct') {
+            if (!isset($single_row['value']) || empty($single_row['value'])) {
+                $validation_error_row_indexes[] = $index;
+                $is_valid = false;
+            }
+        }
+
+        if ((isset($single_row['key']) && strlen($single_row['key']) > 255) || (isset($single_row['value']) && strlen($single_row['value']) > 255)) {
+            $validation_error_row_indexes[] = $index;
+            $is_valid = false;
+        }
+    }
+
+    $validation_error_row_indexes = array_unique($validation_error_row_indexes);
+    if ($validation_error_row_indexes) {
+        set_transient('stupid_simple_meta_tags_basic_settings_meta_configuration_list_validation_error_row_indexes', $validation_error_row_indexes, 5);
+    }
+
+    return $is_valid;
+}
+
+/**
+ * Sanitize the form submission data.
+ * 1. If the data is not an array, do not save it.
+ * 2. Do not save empty rows.
+ */
+function stupid_simple_meta_tags_basic_settings_meta_configuration_list_sanitize($input) {
     if (!is_array($input)) {
         return [];
     }
 
-    $allow_tags = [
+    $direct_type_allow_tags = [
         'meta' => [
             'content' => [],
             'name' => [],
@@ -74,14 +135,26 @@ function stupid_simple_meta_tags_basic_settings_meta_configuration_list_callback
         ],
     ];
 
-    $clean_data = array_map(function ($row) use ($allow_tags) {
+    $input = array_filter($input, function ($row) {
+        return !empty($row['type']);
+    });
+
+    $input = array_map(function ($row) use ($direct_type_allow_tags) {
+        $order  = intval($row['order'] ?? 0);
+        $type   = sanitize_text_field($row['type'] ?? '');
+        $key    = sanitize_text_field($row['key'] ?? '');
+        $value  = str_replace(["\'", "'", '\"', '\\"', '\\\"', '\\\\"', '\\\\\"'], '"', $row['value'] ?? '');
+        $value  = wp_kses($value, $direct_type_allow_tags);
+
         return [
-            'order' => intval($row['order'] ?? 0),
-            'type'  => sanitize_text_field($row['type'] ?? ''),
-            'key'   => sanitize_text_field($row['key'] ?? ''),
-            'value' => str_replace('"', "'", wp_kses($row['value'] ?? '', $allow_tags)),
+            'order' => $order,
+            'type'  => $type,
+            'key'   => $key,
+            'value' => $value,
         ];
     }, $input);
 
-    return $clean_data;
+    array_multisort(array_column($input, 'order'), SORT_DESC, $input);
+
+    return $input;
 }
