@@ -10,7 +10,8 @@ const addRow = () => {
     newRow.querySelector('.order-input').name = `stupid_simple_meta_tags_basic_settings_meta_configuration_list[${newRowIndex}][order]`;
     newRow.querySelector('.type-select').name = `stupid_simple_meta_tags_basic_settings_meta_configuration_list[${newRowIndex}][type]`;
     newRow.querySelector('.key-input').name = `stupid_simple_meta_tags_basic_settings_meta_configuration_list[${newRowIndex}][key]`;
-    newRow.querySelector('.value-input').name = `stupid_simple_meta_tags_basic_settings_meta_configuration_list[${newRowIndex}][value]`;    
+    newRow.querySelector('.value-input').name = `stupid_simple_meta_tags_basic_settings_meta_configuration_list[${newRowIndex}][value]`;
+    newRow.querySelector('.direct-value-input').name = `stupid_simple_meta_tags_basic_settings_meta_configuration_list[${newRowIndex}][value]`;
 
     newRow.querySelector('.order-input').removeAttribute('disabled');
     newRow.querySelector('.type-select').removeAttribute('disabled');
@@ -37,6 +38,7 @@ const reIndexRows = () => {
         row.querySelector('.type-select').name = `stupid_simple_meta_tags_basic_settings_meta_configuration_list[${i}][type]`;
         row.querySelector('.key-input').name = `stupid_simple_meta_tags_basic_settings_meta_configuration_list[${i}][key]`;
         row.querySelector('.value-input').name = `stupid_simple_meta_tags_basic_settings_meta_configuration_list[${i}][value]`;
+        row.querySelector('.direct-value-input').name = `stupid_simple_meta_tags_basic_settings_meta_configuration_list[${i}][value]`;
     }
 }
 
@@ -48,3 +50,52 @@ const updateTotalCount = () => {
         element.innerText = rowCount - 1;
     });
 }
+
+const metaTypeChange = (element) => {
+    const row = element.closest('.meta-tags-list-row');
+
+    const keyInput = row.querySelector('.key-input');
+    const valueInput = row.querySelector('.value-input');
+    const directValueInput = row.querySelector('.direct-value-input');
+
+    const keyDataCell = row.querySelector('.column-key');
+    const valueDataCell = row.querySelector('.column-value');
+    const spacerDataCell = row.querySelector('.column-spacer');
+    if (element.value === 'direct') {
+        keyInput.setAttribute('disabled', 'disabled');
+        keyInput.classList.add('d-none');
+
+        valueInput.setAttribute('disabled', 'disabled');
+        valueInput.classList.add('d-none');
+
+        directValueInput.removeAttribute('disabled');
+        directValueInput.classList.remove('d-none');
+
+        keyDataCell.setAttribute("colSpan", "2");
+        valueDataCell.width = "0px";
+        spacerDataCell.setAttribute("colSpan", "1");
+
+    } else {
+        keyInput.removeAttribute('disabled');
+        keyInput.classList.remove('d-none');
+
+        valueInput.removeAttribute('disabled');
+        valueInput.classList.remove('d-none');
+
+        directValueInput.setAttribute('disabled', 'disabled');
+        directValueInput.classList.add('d-none');
+
+        keyDataCell.setAttribute("colSpan", "1");
+        valueDataCell.width = "initial";
+        spacerDataCell.setAttribute("colSpan", "2");
+    }
+}
+
+const init = () => {
+    const typeSelects = document.querySelectorAll('.type-select');
+    typeSelects.forEach((element) => {
+        metaTypeChange(element);
+    });
+}
+
+window.onload = init;

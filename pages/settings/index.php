@@ -61,12 +61,25 @@ function stupid_simple_meta_tags_basic_settings_meta_configuration_list_callback
     if (!is_array($input)) {
         return [];
     }
-    $clean_data = array_map(function ($row) {
+
+    $allow_tags = [
+        'meta' => [
+            'content' => [],
+            'name' => [],
+            'property' => [],
+            'http-equiv' => [],
+            'itemprop' => [],
+            'charset' => [],
+            'scheme' => [],
+        ],
+    ];
+
+    $clean_data = array_map(function ($row) use ($allow_tags) {
         return [
             'order' => intval($row['order'] ?? 0),
             'type'  => sanitize_text_field($row['type'] ?? ''),
             'key'   => sanitize_text_field($row['key'] ?? ''),
-            'value' => sanitize_text_field($row['value'] ?? ''),
+            'value' => str_replace('"', "'", wp_kses($row['value'] ?? '', $allow_tags)),
         ];
     }, $input);
 
