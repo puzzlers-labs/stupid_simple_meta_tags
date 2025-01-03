@@ -31,18 +31,21 @@ function stupid_simple_meta_tags_setup_menu() {
 
 function stupid_simple_meta_tags_render_meta_tags() {
     $meta_configuration_list = get_option('stupid_simple_meta_tags_basic_settings_meta_configuration_list', []);
-    echo "<!-- Stupid Simple Meta Tags Start -->";
-    // var_dump($meta_configuration_list);
 
+    echo "<!-- Stupid Simple Meta Tags Start -->";
     foreach ($meta_configuration_list as $meta_configuration) {
         $meta_configuration['key'] = trim($meta_configuration['key']);
         $meta_configuration['value'] = trim($meta_configuration['value']);
 
-        // if (empty($meta_configuration['key']) || empty($meta_configuration['value'])) {
-        //     continue;
-        // }
-
-        echo "<meta {$meta_configuration['type']}='{$meta_configuration['key']}' content='{$meta_configuration['value']}' />";
+        if ($meta_configuration['type'] === 'direct') {
+            if (!empty($meta_configuration['value'])) {
+                echo $meta_configuration['value'];
+            }
+        } else {
+            if (!empty($meta_configuration['key'])) {
+                echo "<meta {$meta_configuration['type']}='{$meta_configuration['key']}' content='{$meta_configuration['value']}' />";
+            }
+        }
     }
     echo "<!-- Stupid Simple Meta Tags End -->";
 }
