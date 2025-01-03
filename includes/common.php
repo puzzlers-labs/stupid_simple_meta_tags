@@ -37,6 +37,10 @@ function ssmt_form_submission_validator() {
     }
 }
 
+function ssmt_is_licensed() {
+    return true;
+}
+
 // function stupid_simple_meta_tags_init() {
 
 //     add_action('enqueue_block_editor_assets', 'enqueue_custom_editor_plugin');

@@ -4,16 +4,20 @@ $meta_configuration_list = $_POST['ssmt_basic_settings_meta_configuration_list']
 <div class="wrap">
     <div style="text-align: center; margin-bottom: 20px;">
         <a href="https://puzzlers-labs.com" target="_blank">
-            <img src="<?php echo SSMT_PLUGIN_URL . 'assets/images/ssmt_mini_banner.png'; ?>" alt="Puzzlers Labs Logo" style="max-width: 600px;">
+            <?php if (ssmt_is_licensed()): ?>
+                <img src="<?php echo SSMT_PLUGIN_URL . 'assets/images/ssmt_licensed_mini_banner.png'; ?>" alt="Puzzlers Labs Logo" style="max-width: 600px;">
+            <?php else: ?>
+                <img src="<?php echo SSMT_PLUGIN_URL . 'assets/images/ssmt_mini_banner.png'; ?>" alt="Puzzlers Labs Logo" style="max-width: 600px;">
+            <?php endif; ?>
         </a>
     </div>
 
     <!-- Links Section -->
     <div style="text-align: center; margin-bottom: 30px;">
         <p>
-            <a href="https://example.com/contact" target="_blank">Contact</a> |
+            <!-- <a href="https://example.com/contact" target="_blank">Contact</a> | -->
             <a href="https://example.com/privacy-policy" target="_blank">Privacy Policy</a> |
-            <a href="https://github.com/example/repo" target="_blank">GitHub Repository</a>
+            <a href="https://github.com/puzzlers-labs/stupid_simple_meta_tags" target="_blank">GitHub Repository</a>
         </p>
     </div>
 
@@ -48,18 +52,41 @@ $meta_configuration_list = $_POST['ssmt_basic_settings_meta_configuration_list']
             <tr>
                 <td><strong>License Status:</strong></td>
                 <td>
-                    <?php echo esc_html(get_option('my_plugin_license_status', 'Unlicensed')); ?>
-                    <span style="color: red; margin-left: 5px;">
-                        &times;
-                    </span>
-                    <a href="puzzlers-labs.com"><i>(Register for free)</i></a>
+                    <?php if (ssmt_is_licensed()): ?>
+                        <span style="color: green;">
+                            Licensed
+                        </span>
+                        <span style="color: green; margin-left: 5px;">
+                            &#10003;
+                        </span>
+                    <?php else: ?>
+                        <span style="color: red;">
+                            Unlicensed
+                        </span>
+                        <span style="color: red; margin-left: 5px;">
+                            &times;
+                        </span>
+                        <a href="puzzlers-labs.com"><i>(Register for free)</i></a>
+                    <?php endif; ?>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <!-- Rating Form -->
     <div style="margin-top: 40px;">
+        <h2>Contact</h2>
+        <p>
+            You can contact us at <a href="mailto:hello@puzzlers-labs.com">Puzzlers Labs</a> for any queries or feedback.
+            <br />
+            Please share the technical information above when contacting us for a faster response.
+        </p>
+        <p>
+            Alternatively, you can also raise an issue on the <a href="https://github.com/puzzlers-labs/stupid_simple_meta_tags" target="_blank">GitHub Repository</a>.
+        </p>
+
+    </div>
+
+    <!-- <div style="margin-top: 40px;">
         <h2>Rate This Plugin</h2>
         <form method="post" action="">
             <?php wp_nonce_field('plugin_feedback_nonce', '_wpnonce'); ?>
@@ -88,5 +115,5 @@ $meta_configuration_list = $_POST['ssmt_basic_settings_meta_configuration_list']
                 <button type="submit" class="button button-primary">Submit Feedback</button>
             </p>
         </form>
-    </div>
+    </div> -->
 </div>

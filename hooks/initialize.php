@@ -60,7 +60,9 @@ function ssmt_render_meta_tags() {
 
 function ssmt_get_icon() {
     $admin_color = get_user_option('admin_color');
-    // return SSMT_PLUGIN_URL . "assets/images/ssmt_licensed.png";
+    if (ssmt_is_licensed()) {
+        return SSMT_PLUGIN_URL . "assets/images/ssmt_licensed.png";
+    }
     if (in_array($admin_color, ['light'])) {
         return SSMT_PLUGIN_URL . "assets/images/ssmt_dark.png";
     }
