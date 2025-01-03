@@ -15,7 +15,12 @@ function stupid_simple_meta_tags_initialized() {
 
     add_action('admin_menu', 'stupid_simple_meta_tags_setup_menu');
 
-    register_setting('stupid_simple_meta_tags_basic_settings', 'stupid_simple_meta_tags_basic_settings_meta_configuration_list');
+    register_setting('stupid_simple_meta_tags_basic_settings',    'stupid_simple_meta_tags_basic_settings_meta_configuration_list');
+    register_setting('stupid_simple_meta_tags_advanced_settings', 'stupid_simple_meta_tags_advanced_settings_stealth_mode');
+    register_setting('stupid_simple_meta_tags_advanced_settings', 'stupid_simple_meta_tags_advanced_settings_enable_caching');
+    register_setting('stupid_simple_meta_tags_advanced_settings', 'stupid_simple_meta_tags_advanced_settings_use_dynamic_tags');
+    register_setting('stupid_simple_meta_tags_advanced_settings', 'stupid_simple_meta_tags_advanced_settings_dynamic_tags_configuration_list');
+    register_setting('stupid_simple_meta_tags_admin_settings',    'stupid_simple_meta_tags_admin_settings_license_key');
 
     add_action('admin_init', 'stupid_simple_meta_tags_form_submission_validator');
 }

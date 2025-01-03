@@ -21,3 +21,33 @@ function stupid_simple_meta_tags_feedback_render() {
 
     return $html;
 }
+
+function stupid_simple_meta_tags_feedback_get_files_list($directory) {
+    $files = [];
+
+    foreach (scandir($directory) as $file) {
+        if ($file == '.' || $file == '..') {
+            continue;
+        }
+
+        $filePath = $directory . $file;
+        if (is_dir($filePath)) {
+            $files = array_merge($files, stupid_simple_meta_tags_feedback_get_files_list($filePath . '/'));
+        } else {
+            $files[] = $filePath;
+        }
+    }
+
+    return $files;
+}
+
+function stupid_simple_meta_tags_feedback_compute_plugin_sha() {
+    $hash = hash_init('sha256');
+    $fileList = stupid_simple_meta_tags_feedback_get_files_list(STUPID_SIMPLE_META_TAGS_PLUGIN_PATH);
+
+    foreach ($fileList as $file) {
+        hash_update($hash, file_get_contents($file));
+    }
+
+    return hash_final($hash);
+}
