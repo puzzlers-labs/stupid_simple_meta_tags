@@ -18,7 +18,7 @@ function add_stupid_simple_meta_tags_footer_message() {
 
 function stupid_simple_meta_tags_form_submission_validator() {
     if (isset($_POST['stupid_simple_meta_tags_basic_settings_nonce'])) {
-        if (!wp_verify_nonce($_POST['stupid_simple_meta_tags_basic_settings_nonce'], 'stupid_simple_meta_tags_basic_settings_action')) {
+        if (!wp_verify_nonce($_POST['stupid_simple_meta_tags_basic_settings_nonce'], 'stupid_simple_meta_tags_basic_settings')) {
             add_action('admin_notices', function () {
                 echo '<div class="notice notice-error is-dismissible"><p>Oops! Something went wrong with your request. Please refresh the page and try submitting the form again.</p></div>';
             });

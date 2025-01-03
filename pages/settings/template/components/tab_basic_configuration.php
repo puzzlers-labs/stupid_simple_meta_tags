@@ -27,7 +27,8 @@ delete_transient('stupid_simple_meta_tags_basic_settings_meta_configuration_list
     </datalist>
 
     <form method="post" action="">
-        <?php wp_nonce_field('stupid_simple_meta_tags_basic_settings_action', 'stupid_simple_meta_tags_basic_settings_nonce'); ?>
+        <?php wp_nonce_field('stupid_simple_meta_tags_basic_settings', 'stupid_simple_meta_tags_basic_settings_nonce'); ?>
+        <input type="hidden" id="bulk_actions_nonce" value="<?php echo wp_create_nonce('stupid_simple_meta_tags_basic_settings_bulk_action'); ?>" />
 
         <div class="tablenav top">
             <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_bulk_actions(); ?>
