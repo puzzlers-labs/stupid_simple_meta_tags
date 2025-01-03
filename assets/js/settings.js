@@ -7,11 +7,11 @@ const addRow = () => {
     const newRow = template.cloneNode(true);
     newRow.classList.remove('template');
     newRow.classList.remove('d-none');
-    newRow.querySelector('.order-input').name = `ssmt_basic_settings_meta_configuration_list[${newRowIndex}][order]`;
-    newRow.querySelector('.type-select').name = `ssmt_basic_settings_meta_configuration_list[${newRowIndex}][type]`;
-    newRow.querySelector('.key-input').name = `ssmt_basic_settings_meta_configuration_list[${newRowIndex}][key]`;
-    newRow.querySelector('.value-input').name = `ssmt_basic_settings_meta_configuration_list[${newRowIndex}][value]`;
-    newRow.querySelector('.direct-value-input').name = `ssmt_basic_settings_meta_configuration_list[${newRowIndex}][value]`;
+    newRow.querySelector('.order-input').name = `ssmt_basic_configuration_meta_configuration_list[${newRowIndex}][order]`;
+    newRow.querySelector('.type-select').name = `ssmt_basic_configuration_meta_configuration_list[${newRowIndex}][type]`;
+    newRow.querySelector('.key-input').name = `ssmt_basic_configuration_meta_configuration_list[${newRowIndex}][key]`;
+    newRow.querySelector('.value-input').name = `ssmt_basic_configuration_meta_configuration_list[${newRowIndex}][value]`;
+    newRow.querySelector('.direct-value-input').name = `ssmt_basic_configuration_meta_configuration_list[${newRowIndex}][value]`;
 
     newRow.querySelector('.order-input').removeAttribute('disabled');
     newRow.querySelector('.type-select').removeAttribute('disabled');
@@ -36,11 +36,11 @@ const reIndexRows = () => {
     const rows = inputList.children;
     for (let i = 1; i < rows.length; i++) {
         const row = rows[i];
-        row.querySelector('.order-input').name = `ssmt_basic_settings_meta_configuration_list[${i}][order]`;
-        row.querySelector('.type-select').name = `ssmt_basic_settings_meta_configuration_list[${i}][type]`;
-        row.querySelector('.key-input').name = `ssmt_basic_settings_meta_configuration_list[${i}][key]`;
-        row.querySelector('.value-input').name = `ssmt_basic_settings_meta_configuration_list[${i}][value]`;
-        row.querySelector('.direct-value-input').name = `ssmt_basic_settings_meta_configuration_list[${i}][value]`;
+        row.querySelector('.order-input').name = `ssmt_basic_configuration_meta_configuration_list[${i}][order]`;
+        row.querySelector('.type-select').name = `ssmt_basic_configuration_meta_configuration_list[${i}][type]`;
+        row.querySelector('.key-input').name = `ssmt_basic_configuration_meta_configuration_list[${i}][key]`;
+        row.querySelector('.value-input').name = `ssmt_basic_configuration_meta_configuration_list[${i}][value]`;
+        row.querySelector('.direct-value-input').name = `ssmt_basic_configuration_meta_configuration_list[${i}][value]`;
     }
 }
 
