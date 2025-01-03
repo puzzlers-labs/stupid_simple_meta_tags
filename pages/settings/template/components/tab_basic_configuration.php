@@ -30,25 +30,8 @@ delete_transient('stupid_simple_meta_tags_basic_settings_meta_configuration_list
         <?php wp_nonce_field('stupid_simple_meta_tags_basic_settings_action', 'stupid_simple_meta_tags_basic_settings_nonce'); ?>
 
         <div class="tablenav top">
-            <div class="alignleft actions bulkactions">
-                <label for="bulk-action-selector-top" class="screen-reader-text">Select bulk action</label>
-                <select name="action2" id="bulk-action-selector-bottom">
-                    <option value="-1">Bulk actions</option>
-                    <option value="activate-selected">Hide</option>
-                    <option value="deactivate-selected">Show</option>
-                    <option value="delete-selected">Delete</option>
-                </select>
-                <input type="button" name="bulk_action" id="doaction" class="button action" value="Apply">
-                <button type="button" id="add-input" class="button">Add Row</button>
-            </div>
-            <div class="tablenav-pages one-page">
-                <span class="displaying-num">
-                    <span class="total-row-count">
-                        <?php echo count($meta_configuration_list); ?>
-                    </span>
-                    items
-                </span>
-            </div>
+            <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_bulk_actions(); ?>
+            <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_count_render(count($meta_configuration_list)); ?>
             <br class="clear">
         </div>
 
@@ -61,13 +44,13 @@ delete_transient('stupid_simple_meta_tags_basic_settings_meta_configuration_list
             <tbody id="dynamic-inputs-list">
                 <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => 'd-none inactive', 'is_template' => true]); ?>
                 <?php if (!empty($meta_configuration_list)): ?>
-                    <?php foreach ($meta_configuration_list as $index => $single_meta_configuration) : ?>
+                    <?php foreach ($meta_configuration_list as $index => $single_meta_configuration): ?>
                         <?php $is_active = $single_meta_configuration['order'] >= 0; ?>
-                        <?php $is_error = in_array($index, $validation_error_row_indexes); ?>
-                        <?php $row_class = $is_error ? 'paused' : ($is_active ? 'active' : 'inactive'); ?>
+                        <?php $is_error  = in_array($index, $validation_error_row_indexes); ?>
+                        <?php $row_class = $is_error ? 'paused' : ($is_active ? 'active' : 'active hide'); ?>
                         <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => $row_class, 'index' => $index, 'form_data' => $single_meta_configuration]); ?>
                     <?php endforeach; ?>
-                <?php else : ?>
+                <?php else: ?>
                     <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render(['row_class' => 'active', 'index' => count($meta_configuration_list) + 1]); ?>
                 <?php endif; ?>
             </tbody>
@@ -78,26 +61,8 @@ delete_transient('stupid_simple_meta_tags_basic_settings_meta_configuration_list
 
         </table>
         <div class="tablenav bottom">
-
-            <div class="alignleft actions bulkactions">
-                <label for="bulk-action-selector-bottom" class="screen-reader-text">Select bulk action</label>
-                <select name="action2" id="bulk-action-selector-bottom">
-                    <option value="-1">Bulk actions</option>
-                    <option value="activate-selected">Hide</option>
-                    <option value="deactivate-selected">Show</option>
-                    <option value="delete-selected">Delete</option>
-                </select>
-                <input type="button" name="bulk_action" id="doaction2" class="button action" value="Apply">
-                <button type="button" onclick="addRow();" class="button">Add Row</button>
-            </div>
-            <div class="tablenav-pages one-page">
-                <span class="displaying-num">
-                    <span class="total-row-count">
-                        <?php echo count($meta_configuration_list); ?>
-                    </span>
-                    items
-                </span>
-            </div>
+            <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_bulk_actions(); ?>
+            <?php echo stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_count_render(count($meta_configuration_list)); ?>
             <br class="clear">
         </div>
         <?php submit_button(); ?>

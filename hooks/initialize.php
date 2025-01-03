@@ -32,8 +32,12 @@ function stupid_simple_meta_tags_render_meta_tags() {
 
     echo "<!-- Stupid Simple Meta Tags Start -->";
     foreach ($meta_configuration_list as $meta_configuration) {
-        $meta_configuration['key'] = trim($meta_configuration['key']);
+        $meta_configuration['key']   = trim($meta_configuration['key']);
         $meta_configuration['value'] = trim($meta_configuration['value']);
+
+        if ($meta_configuration['order'] < 0) {
+            continue;
+        }
 
         if ($meta_configuration['type'] === 'direct') {
             if (!empty($meta_configuration['value'])) {
