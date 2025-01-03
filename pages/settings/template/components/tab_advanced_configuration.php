@@ -6,10 +6,10 @@
         <table class="form-table">
             <tr>
                 <th scope="row" class="p-8 ps-0">
-                    <label for="stupid_simple_meta_tags_advanced_settings_stealth_mode">Enable Stealth Mode</label>
+                    <label for="ssmt_tags_advanced_settings_stealth_mode">Show SSMT Branding</label>
                 </th>
                 <td class="p-8 ps-0">
-                    <input type="checkbox" name="stupid_simple_meta_tags_advanced_settings_stealth_mode" id="stupid_simple_meta_tags_advanced_settings_stealth_mode" value="1" <?php checked(get_option('stupid_simple_meta_tags_advanced_settings_stealth_mode'), '1'); ?> />
+                    <input type="checkbox" name="ssmt_advanced_settings_stealth_mode" id="ssmt_advanced_settings_stealth_mode" value="1" <?php checked(get_option('ssmt_advanced_settings_stealth_mode'), '1'); ?> />
                 </td>
             </tr>
             <tr>

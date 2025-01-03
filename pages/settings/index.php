@@ -1,74 +1,74 @@
 <?php
 
-function stupid_simple_meta_tags_settings_init() {
-    add_filter('admin_footer_text', 'add_stupid_simple_meta_tags_footer_message');
+function ssmt_settings_init() {
+    add_filter('admin_footer_text', 'add_ssmt_footer_message');
 
-    wp_enqueue_style('common-css', STUPID_SIMPLE_META_TAGS_PLUGIN_URL . 'assets/css/common.css');
+    wp_enqueue_style('common-css', SSMT_PLUGIN_URL . 'assets/css/common.css');
 
-    wp_enqueue_script('settings-js', STUPID_SIMPLE_META_TAGS_PLUGIN_URL . 'assets/js/settings.js');
-    wp_enqueue_style('settings-css', STUPID_SIMPLE_META_TAGS_PLUGIN_URL . 'assets/css/settings.css');
+    wp_enqueue_script('settings-js', SSMT_PLUGIN_URL . 'assets/js/settings.js');
+    wp_enqueue_style('settings-css', SSMT_PLUGIN_URL . 'assets/css/settings.css');
 
-    echo stupid_simple_meta_tags_settings_render();
+    echo ssmt_settings_render();
 }
 
 //Wordpress uses echo approach instead of returning the template strings. Therefore need to parse the buffer.
-function stupid_simple_meta_tags_settings_render() {
+function ssmt_settings_render() {
     ob_start();
-    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/index.php';
+    require SSMT_PLUGIN_PATH . 'pages/settings/template/index.php';
     $html = ob_get_contents();
     ob_end_clean();
 
     return $html;
 }
 
-function stupid_simple_meta_tags_settings_tab_basic_configuration_render() {
+function ssmt_settings_tab_basic_configuration_render() {
     ob_start();
-    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration.php';
+    require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration.php';
     $html = ob_get_contents();
     ob_end_clean();
 
     return $html;
 }
 
-function stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render($stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_row_render_config = []) {
+function ssmt_settings_tab_basic_configuration_meta_tags_table_row_render($ssmt_settings_tab_basic_configuration_meta_tags_table_row_render_config = []) {
     ob_start();
-    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_row.php';
+    require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_row.php';
     $html = ob_get_contents();
     ob_end_clean();
 
     return $html;
 }
 
-function stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_column_titles_render() {
+function ssmt_settings_tab_basic_configuration_meta_tags_table_column_titles_render() {
     ob_start();
-    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_column_titles.php';
+    require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_column_titles.php';
     $html = ob_get_contents();
     ob_end_clean();
 
     return $html;
 }
 
-function stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_count_render($stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_count) {
+function ssmt_settings_tab_basic_configuration_meta_tags_table_count_render($ssmt_settings_tab_basic_configuration_meta_tags_table_count) {
     ob_start();
-    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_count.php';
+    require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_count.php';
     $html = ob_get_contents();
     ob_end_clean();
 
     return $html;
 }
 
-function stupid_simple_meta_tags_settings_tab_basic_configuration_meta_tags_table_bulk_actions() {
+function ssmt_settings_tab_basic_configuration_meta_tags_table_bulk_actions() {
     ob_start();
-    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_bulk_actions.php';
+    require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_bulk_actions.php';
     $html = ob_get_contents();
     ob_end_clean();
 
     return $html;
 }
 
-function stupid_simple_meta_tags_settings_tab_advanced_configuration_render() {
+function ssmt_settings_tab_advanced_configuration_render() {
     ob_start();
-    require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'pages/settings/template/components/tab_advanced_configuration.php';
+    require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_advanced_configuration.php';
     $html = ob_get_contents();
     ob_end_clean();
 
@@ -85,7 +85,7 @@ function stupid_simple_meta_tags_settings_tab_advanced_configuration_render() {
  * 6. If the type is direct, the row should have a value property.
  * 7. The length of the key and value should be less than 255 characters.
  */
-function stupid_simple_meta_tags_basic_settings_meta_configuration_list_validate($input) {
+function ssmt_basic_settings_meta_configuration_list_validate($input) {
     $validation_error_row_indexes = [];
     $is_valid = true;
     if (!is_array($input)) {
@@ -125,7 +125,7 @@ function stupid_simple_meta_tags_basic_settings_meta_configuration_list_validate
 
     $validation_error_row_indexes = array_unique($validation_error_row_indexes);
     if ($validation_error_row_indexes) {
-        set_transient('stupid_simple_meta_tags_basic_settings_meta_configuration_list_validation_error_row_indexes', $validation_error_row_indexes, 5);
+        set_transient('ssmt_basic_settings_meta_configuration_list_validation_error_row_indexes', $validation_error_row_indexes, 5);
     }
 
     return $is_valid;
@@ -138,7 +138,7 @@ function stupid_simple_meta_tags_basic_settings_meta_configuration_list_validate
  * 3. Sanitize the order, type, key and value.
  * 4. Sort the data based on the order in descending order.
  */
-function stupid_simple_meta_tags_basic_settings_meta_configuration_list_sanitize($input) {
+function ssmt_basic_settings_meta_configuration_list_sanitize($input) {
     if (!is_array($input)) {
         return [];
     }

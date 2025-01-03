@@ -26,31 +26,31 @@ if (!defined('WPINC')) {
     die('Uh oh, this is not a Wordpress environment.');
 }
 
-define('STUPID_SIMPLE_META_TAGS_PLUGIN_FILE', __FILE__);
-define('STUPID_SIMPLE_META_TAGS_PLUGIN_PATH', plugin_dir_path(STUPID_SIMPLE_META_TAGS_PLUGIN_FILE));
-define('STUPID_SIMPLE_META_TAGS_PLUGIN_URL',  plugin_dir_url(STUPID_SIMPLE_META_TAGS_PLUGIN_FILE));
+define('SSMT_PLUGIN_FILE', __FILE__);
+define('SSMT_PLUGIN_PATH', plugin_dir_path(SSMT_PLUGIN_FILE));
+define('SSMT_PLUGIN_URL',  plugin_dir_url(SSMT_PLUGIN_FILE));
 
-require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'config.php';
+require SSMT_PLUGIN_PATH . 'config.php';
 
-require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'hooks/activate.php';
-require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'hooks/deactivate.php';
-require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'hooks/initialize.php';
-require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'hooks/install.php';
-require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'hooks/uninstall.php';
+require SSMT_PLUGIN_PATH . 'hooks/activate.php';
+require SSMT_PLUGIN_PATH . 'hooks/deactivate.php';
+require SSMT_PLUGIN_PATH . 'hooks/initialize.php';
+require SSMT_PLUGIN_PATH . 'hooks/install.php';
+require SSMT_PLUGIN_PATH . 'hooks/uninstall.php';
 
 // Give fallback defines.
-if (!defined('STUPID_SIMPLE_META_TAGS_VERSION')) {
-    define('STUPID_SIMPLE_META_TAGS_VERSION', '0.0.0-alpha');
+if (!defined('SSMT_VERSION')) {
+    define('SSMT_VERSION', '0.0.0-alpha');
 }
-if (!defined('STUPID_SIMPLE_META_TAGS_META_KEY_OPTIONS')) {
-    define('STUPID_SIMPLE_META_TAGS_META_KEY_OPTIONS', []);
+if (!defined('SSMT_META_KEY_OPTIONS')) {
+    define('SSMT_META_KEY_OPTIONS', []);
 }
 
 // import common functions.
-require STUPID_SIMPLE_META_TAGS_PLUGIN_PATH . 'includes/common.php';
+require SSMT_PLUGIN_PATH . 'includes/common.php';
 
-register_activation_hook(STUPID_SIMPLE_META_TAGS_PLUGIN_FILE,   'stupid_simple_meta_tags_activated');
-register_deactivation_hook(STUPID_SIMPLE_META_TAGS_PLUGIN_FILE, 'stupid_simple_meta_tags_deactivated');
-register_uninstall_hook(STUPID_SIMPLE_META_TAGS_PLUGIN_FILE,    'stupid_simple_meta_tags_uninstalled');
+register_activation_hook(SSMT_PLUGIN_FILE,   'ssmt_activated');
+register_deactivation_hook(SSMT_PLUGIN_FILE, 'ssmt_deactivated');
+register_uninstall_hook(SSMT_PLUGIN_FILE,    'ssmt_uninstalled');
 
-stupid_simple_meta_tags_initialized();
+ssmt_initialized();
