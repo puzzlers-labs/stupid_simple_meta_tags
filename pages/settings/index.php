@@ -84,11 +84,15 @@ function ssmt_settings_tab_advanced_configuration_render() {
  * 5. If the type is name or property, the row should have a key property.
  * 6. If the type is direct, the row should have a value property.
  * 7. The length of the key and value should be less than 255 characters.
+ * 8. Total item count should be less than 10000.
  */
 function ssmt_basic_settings_meta_configuration_list_validate($input) {
     $validation_error_row_indexes = [];
     $is_valid = true;
     if (!is_array($input)) {
+        $is_valid = false;
+    }
+    if (count($input) > 10000) {
         $is_valid = false;
     }
     foreach ($input as $index => $single_row) {
