@@ -10,9 +10,7 @@ function ssmt_feedback_init() {
     echo ssmt_feedback_render();
 }
 
-
 function ssmt_feedback_render() {
-
     //Wordpress uses echo approach instead of returning the template strings. Therefore need to parse the buffer.
     ob_start();
     require SSMT_PLUGIN_PATH . 'pages/feedback/template.php';

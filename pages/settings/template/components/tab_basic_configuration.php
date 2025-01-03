@@ -1,9 +1,9 @@
 <?php
-$meta_configuration_list        = $_POST['ssmt_basic_settings_meta_configuration_list'] ?? get_option('ssmt_basic_settings_meta_configuration_list', []);
-$validation_error_row_indexes   = get_transient('ssmt_basic_settings_meta_configuration_list_validation_error_row_indexes');
+$meta_configuration_list        = $_POST['ssmt_basic_configuration_meta_configuration_list'] ?? get_option('ssmt_basic_configuration_meta_configuration_list', []);
+$validation_error_row_indexes   = get_transient('ssmt_basic_configuration_meta_configuration_list_validation_error_row_indexes');
 $validation_error_row_indexes   = is_array($validation_error_row_indexes) ? $validation_error_row_indexes : [];
 
-delete_transient('ssmt_basic_settings_meta_configuration_list_validation_error_row_indexes');
+delete_transient('ssmt_basic_configuration_meta_configuration_list_validation_error_row_indexes');
 ?>
 
 <div>
@@ -27,8 +27,8 @@ delete_transient('ssmt_basic_settings_meta_configuration_list_validation_error_r
     </datalist>
 
     <form method="post" action="">
-        <?php wp_nonce_field('ssmt_basic_settings', 'ssmt_basic_settings_nonce'); ?>
-        <input type="hidden" id="bulk_actions_nonce" value="<?php echo wp_create_nonce('ssmt_basic_settings_bulk_action'); ?>" />
+        <?php wp_nonce_field('ssmt_basic_configuration', 'ssmt_basic_configuration_nonce'); ?>
+        <input type="hidden" id="bulk_actions_nonce" value="<?php echo wp_create_nonce('ssmt_basic_configuration_bulk_action'); ?>" />
 
         <div class="tablenav top">
             <?php echo ssmt_settings_tab_basic_configuration_meta_tags_table_bulk_actions(); ?>

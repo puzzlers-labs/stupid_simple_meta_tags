@@ -86,7 +86,7 @@ function ssmt_settings_tab_advanced_configuration_render() {
  * 7. The length of the key and value should be less than 255 characters.
  * 8. Total item count should be less than 10000.
  */
-function ssmt_basic_settings_meta_configuration_list_validate($input) {
+function ssmt_basic_configuration_meta_configuration_list_validate($input) {
     $validation_error_row_indexes = [];
     $is_valid = true;
     if (!is_array($input)) {
@@ -129,7 +129,22 @@ function ssmt_basic_settings_meta_configuration_list_validate($input) {
 
     $validation_error_row_indexes = array_unique($validation_error_row_indexes);
     if ($validation_error_row_indexes) {
-        set_transient('ssmt_basic_settings_meta_configuration_list_validation_error_row_indexes', $validation_error_row_indexes, 5);
+        set_transient('ssmt_basic_configuration_meta_configuration_list_validation_error_row_indexes', $validation_error_row_indexes, 5);
+    }
+
+    return $is_valid;
+}
+
+function ssmt_advanced_settings_validate($input) {
+    $is_valid = true;
+    if (isset($input['ssmt_advanced_settings_show_ssmt_branding']) && $input['ssmt_advanced_settings_show_ssmt_branding'] !== '1') {
+        $is_valid = false;
+    }
+    if (isset($input['ssmt_advanced_settings_enable_caching']) && $input['ssmt_advanced_settings_enable_caching'] !== '1') {
+        $is_valid = false;
+    }
+    if (isset($input['ssmt_advanced_settings_use_dynamic_tags']) && $input['ssmt_advanced_settings_use_dynamic_tags'] !== '1') {
+        $is_valid = false;
     }
 
     return $is_valid;
@@ -142,7 +157,7 @@ function ssmt_basic_settings_meta_configuration_list_validate($input) {
  * 3. Sanitize the order, type, key and value.
  * 4. Sort the data based on the order in descending order.
  */
-function ssmt_basic_settings_meta_configuration_list_sanitize($input) {
+function ssmt_basic_configuration_meta_configuration_list_sanitize($input) {
     if (!is_array($input)) {
         return [];
     }
@@ -181,4 +196,18 @@ function ssmt_basic_settings_meta_configuration_list_sanitize($input) {
     array_multisort(array_column($input, 'order'), SORT_DESC, $input);
 
     return $input;
+}
+
+function ssmt_advanced_settings_sanitize($input) {
+    $sanitized_data = [];
+    $sanitized_data['ssmt_advanced_settings_show_ssmt_branding'] = isset($input['ssmt_advanced_settings_show_ssmt_branding']) ? true : false;
+    $sanitized_data['ssmt_advanced_settings_enable_caching']     = isset($input['ssmt_advanced_settings_enable_caching'])     ? true : false;
+    $sanitized_data['ssmt_advanced_settings_use_dynamic_tags']   = isset($input['ssmt_advanced_settings_use_dynamic_tags'])   ? true : false;
+
+    if (!ssmt_is_licensed()) {
+        $sanitized_data['ssmt_advanced_settings_show_ssmt_branding'] = true;
+        $sanitized_data['ssmt_advanced_settings_use_dynamic_tags']   = false;
+    }
+
+    return $sanitized_data;
 }

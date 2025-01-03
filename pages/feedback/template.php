@@ -1,5 +1,5 @@
 <?php
-$meta_configuration_list = $_POST['ssmt_basic_settings_meta_configuration_list'] ?? get_option('ssmt_basic_settings_meta_configuration_list', []);
+$meta_configuration_list = $_POST['ssmt_basic_configuration_meta_configuration_list'] ?? get_option('ssmt_basic_configuration_meta_configuration_list', []);
 ?>
 <div class="wrap">
     <div style="text-align: center; margin-bottom: 20px;">
