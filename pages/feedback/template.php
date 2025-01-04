@@ -66,7 +66,7 @@ $meta_configuration_list = $_POST['ssmt_basic_configuration_meta_configuration_l
                         <span style="color: red; margin-left: 5px;">
                             &times;
                         </span>
-                        <a href="puzzlers-labs.com"><i>(Register for free)</i></a>
+                        <a href="<?php echo esc_url(admin_url('admin.php?page=ssmt_register_license')); ?>"><i>(Register for free)</i></a>
                     <?php endif; ?>
                 </td>
             </tr>

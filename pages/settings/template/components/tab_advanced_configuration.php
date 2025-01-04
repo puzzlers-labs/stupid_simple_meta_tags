@@ -7,7 +7,7 @@ $is_licesned                    = ssmt_is_licensed();
 <div>
     <?php if (!$is_licesned): ?>
         <div class="notice notice-warning is-dismissible">
-            <p><strong>Unlicensed:</strong> Some advanced features are disabled. <a href="#">Register for free</a> to enable full functionality.</p>
+            <p><strong>Unlicensed:</strong> Some advanced features are disabled. <a href="<?php echo esc_url(admin_url('admin.php?page=ssmt_register_license')); ?>">Register for free</a> to enable full functionality.</p>
         </div>
     <?php endif; ?>
     <p>This section allows you to manage and customize the settings for dynamic inputs. You can add, remove, or edit entries as needed, ensuring flexibility and ease of use. Each tab stores its own unique list of inputs, giving you complete control over your configuration.

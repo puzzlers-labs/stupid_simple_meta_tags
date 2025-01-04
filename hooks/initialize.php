@@ -121,6 +121,6 @@ function ssmt_gutenberg_editor_extension() {
         'iconLight'     => SSMT_PLUGIN_URL . 'assets/images/ssmt_light.png',
         'iconLicensed'  => SSMT_PLUGIN_URL . 'assets/images/ssmt_licensed.png',
         'isLicensed'    => $is_licensed,
-        'registrationURL' => admin_url('admin.php?page=ssmt_settings'),
+        'registrationURL' => admin_url('admin.php?page=ssmt_register_license'),
     ]);
 }

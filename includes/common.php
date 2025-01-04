@@ -63,5 +63,9 @@ function ssmt_form_submission_validator() {
 }
 
 function ssmt_is_licensed() {
+    $license_key = get_option('ssmt_admin_settings_license_key');
+    if ($license_key) {
+        return true;
+    }
     return false;
 }
