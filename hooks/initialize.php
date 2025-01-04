@@ -9,6 +9,7 @@
 
 require_once SSMT_PLUGIN_PATH . 'pages/settings/index.php';
 require_once SSMT_PLUGIN_PATH . 'pages/feedback/index.php';
+require_once SSMT_PLUGIN_PATH . 'pages/register_license/index.php';
 
 function ssmt_initialized() {
     add_action('wp_head', 'ssmt_render_meta_tags');
@@ -24,13 +25,24 @@ function ssmt_initialized() {
     register_setting('ssmt_admin_settings',         'ssmt_admin_settings_license_key', ['type' => 'string']);
 
     add_action('admin_init', 'ssmt_form_submission_validator');
+    add_action('init', 'ssmt_register_gutenberg_extension');
 }
 
 function ssmt_setup_menu() {
     add_menu_page('Stupid Simple Meta Tags Settings', 'SSMT', 'manage_options', 'ssmt_settings', 'ssmt_settings_init', ssmt_get_icon());
+    // add_menu_page(
+    //     'SSMT Custom Page',          // Page title (not shown)
+    //     'SSMT Custom Page',          // Menu title (not shown)
+    //     'manage_options',            // Capability
+    //     'ssmt_internal_settings',          // Menu slug (this will be used in the URL)
+    //     '',                          // Empty callback function
+    //     'dashicons-admin-tools',     // Icon (optional)
+    //     -1                            // Position (optional)
+    // );
 
-    add_submenu_page('ssmt_settings', 'SSMT Settings', 'Settings', 'manage_options', 'ssmt_settings', 'ssmt_settings_init');
-    add_submenu_page('ssmt_settings', 'SSMT Feedback', 'Feedback', 'manage_options', 'ssmt_settings_feedback', 'ssmt_feedback_init');
+    add_submenu_page('ssmt_settings',          'SSMT Settings',          'Settings', 'manage_options', 'ssmt_settings',          'ssmt_settings_init');
+    add_submenu_page('ssmt_settings',          'SSMT Feedback',          'Feedback', 'manage_options', 'ssmt_settings_feedback', 'ssmt_feedback_init');
+    add_submenu_page('ssmt_internal_settings', 'SSMT Register License',  '',         'manage_options', 'ssmt_register_license',  'ssmt_register_license_init');
 }
 
 function ssmt_render_meta_tags() {
@@ -82,4 +94,33 @@ function ssmt_admin_style() {
     echo '        object-fit: contain;';
     echo '    }';
     echo '</style>';
+}
+
+function ssmt_register_gutenberg_extension() {
+    add_action('enqueue_block_editor_assets', 'ssmt_gutenberg_editor_extension');
+    register_post_meta('', 'ssmt_advanced_settings_gutenberg_data', [
+        'type'         => 'object', // Data type
+        'single'       => false,    // Only 1 data in the key
+        'show_in_rest' => true      // Show in REST API
+    ]);
+}
+
+function ssmt_gutenberg_editor_extension() {
+    // Using - instead of _ in the handle name because WordPress doesn't allow _ inside the plugin JS for Gutenberg.
+    wp_enqueue_script(
+        'ssmt-gutenberg-editor-extension',
+        SSMT_PLUGIN_URL . 'assets/js/gutenberg_editor_extension.js',
+        array('wp-plugins', 'wp-edit-post', 'wp-components', 'wp-element', 'wp-data'),
+        SSMT_VERSION,
+        true
+    );
+
+    $is_licensed = ssmt_is_licensed();
+    wp_localize_script('ssmt-gutenberg-editor-extension', 'SSMTData', [
+        'iconDark'      => SSMT_PLUGIN_URL . 'assets/images/ssmt_dark.png',
+        'iconLight'     => SSMT_PLUGIN_URL . 'assets/images/ssmt_light.png',
+        'iconLicensed'  => SSMT_PLUGIN_URL . 'assets/images/ssmt_licensed.png',
+        'isLicensed'    => $is_licensed,
+        'registrationURL' => admin_url('admin.php?page=ssmt_settings'),
+    ]);
 }
