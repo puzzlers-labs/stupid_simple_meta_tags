@@ -26,6 +26,8 @@ function ssmt_initialized() {
 
     add_action('admin_init', 'ssmt_form_submission_validator');
     add_action('init', 'ssmt_register_gutenberg_extension');
+
+    add_action('wp_ajax_ssmt_validate_license', 'ssmt_register_license_validator');
 }
 
 function ssmt_setup_menu() {
@@ -94,6 +96,20 @@ function ssmt_admin_style() {
     echo '        object-fit: contain;';
     echo '    }';
     echo '</style>';
+}
+
+function ssmt_register_license_validator() {
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ssmt_register_license_validate')) {
+        wp_send_json_error(array('message' => 'Invalid nonce'));
+    }
+
+    $is_license_valid = ssmt_validate_license();
+    if ($is_license_valid) {
+        wp_send_json_success(array('license_status' => 'valid'));
+    } else {
+        wp_send_json_success(array('license_status' => 'invalid'));
+    }
+    wp_die();
 }
 
 function ssmt_register_gutenberg_extension() {

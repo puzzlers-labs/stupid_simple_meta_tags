@@ -1,5 +1,7 @@
 <?php
 $meta_configuration_list = $_POST['ssmt_basic_configuration_meta_configuration_list'] ?? get_option('ssmt_basic_configuration_meta_configuration_list', []);
+$current_page_url = 'admin.php?page=ssmt_settings_feedback';
+$current_page_url = urlencode($current_page_url);
 ?>
 <div class="wrap">
     <div style="text-align: center; margin-bottom: 20px;">
@@ -66,7 +68,7 @@ $meta_configuration_list = $_POST['ssmt_basic_configuration_meta_configuration_l
                         <span style="color: red; margin-left: 5px;">
                             &times;
                         </span>
-                        <a href="<?php echo esc_url(admin_url('admin.php?page=ssmt_register_license')); ?>"><i>(Register for free)</i></a>
+                        <a href="<?php echo esc_url(admin_url('admin.php?page=ssmt_register_license&return_url=' . $current_page_url)); ?>"><i>(Register for free)</i></a>
                     <?php endif; ?>
                 </td>
             </tr>

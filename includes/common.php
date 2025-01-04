@@ -69,3 +69,26 @@ function ssmt_is_licensed() {
     }
     return false;
 }
+
+function ssmt_validate_license($update_db = true) {
+    $license_key = get_option('ssmt_admin_settings_license_key');
+    $response    = wp_remote_get('https://puzzlers-labs.free.beeceptor.com/check_license'); // Also append the website and key as query params
+    // Do not update the db because it might be a network issue or the server is down.
+    // That does not mean the license is invalid.
+    if (is_wp_error($response)) {
+        return false;
+    }
+
+    $body = wp_remote_retrieve_body($response);
+    $data = json_decode($body, true);
+    if ($data['license_status'] === 'valid') {
+        if ($update_db) {
+            update_option('ssmt_admin_settings_license_key', $license_key);
+        }
+        return true;
+    }
+    if ($update_db) {
+        update_option('ssmt_admin_settings_license_key', '');
+    }
+    return false;
+}
