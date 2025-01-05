@@ -7,6 +7,8 @@ const init = () => {
     ssmt_register_license_data.registerLicenseURL ?? "";
   const validateLicenseURL =
     ssmt_register_license_data.validateLicenseURL ?? "";
+  const registerLicenseWPURL =
+    ssmt_register_license_data.registerLicenseWPURL ?? "";
   const validateNonce = ssmt_register_license_data.validateNonce ?? "";
   const returnURL = ssmt_register_license_data.returnURL ?? "";
 
@@ -52,7 +54,7 @@ const init = () => {
               (() => {
                 const returnURLMessage = document.createElement("span");
                 returnURLMessage.style.color = "black";
-                returnURLMessage.innerHTML = `Returning to <a href='${returnURL}'>this page</a>.`;
+                returnURLMessage.innerHTML = `Returning to <a href="${returnURL}">this page</a>.`;
                 licenseStatusText.appendChild(document.createElement("br"));
                 licenseStatusText.appendChild(returnURLMessage);
 
@@ -62,8 +64,24 @@ const init = () => {
               })();
             }
           } else {
-            licenseStatusText.innerHTML = "License is invalid.";
+            licenseStatusText.innerHTML = "License is invalid. ";
             licenseStatusText.style.color = "red";
+
+            if (registerLicenseWPURL) {
+              const returnURLMessage = document.createElement("span");
+              returnURLMessage.style.color = "black";
+              returnURLMessage.innerHTML = `(<a href="${registerLicenseWPURL}">Register for free</a>)`;
+              licenseStatusText.appendChild(returnURLMessage);
+              licenseStatusText.appendChild(document.createElement("br"));
+            }
+
+            if (returnURL) {
+              const returnURLMessage = document.createElement("span");
+              returnURLMessage.style.color = "black";
+              returnURLMessage.innerHTML = `Return to <a href="${returnURL}">previous page</a>.`;
+              licenseStatusText.appendChild(document.createElement("br"));
+              licenseStatusText.appendChild(returnURLMessage);
+            }
 
             icon.classList.add("dashicons-no");
             icon.style.color = "red";
