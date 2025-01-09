@@ -9,32 +9,17 @@
   const { PanelBody, TextControl, Button } = wp.components;
   const { withSelect, withDispatch } = wp.data;
   const { compose } = wp.compose;
-  const { createElement, Fragment } = wp.element;
+  const { createElement, Fragment, useState, useEffect } = wp.element;
   const { __ } = wp.i18n;
 
   /**
    * Configure SSMTData
    * Set license status, icon URLs, etc.
    */
-  const iconUrlDark =
-    typeof SSMTData !== "undefined" && SSMTData.iconDark
-      ? SSMTData.iconDark
-      : "";
-  const iconUrlLight =
-    typeof SSMTData !== "undefined" && SSMTData.iconLight
-      ? SSMTData.iconLight
-      : "";
-  const iconUrlLicensed =
-    typeof SSMTData !== "undefined" && SSMTData.iconLicensed
-      ? SSMTData.iconLicensed
-      : "";
+  const iconURL =
+    typeof SSMTData !== "undefined" && SSMTData.iconURL ? SSMTData.iconURL : "";
   const isLicensed =
     typeof SSMTData !== "undefined" && SSMTData.isLicensed ? true : false;
-  const iconUrl = isLicensed
-    ? iconUrlLicensed
-    : iconUrlDark
-    ? iconUrlDark
-    : iconUrlLight;
   const registrationURL =
     typeof SSMTData !== "undefined" && SSMTData.registrationURL
       ? SSMTData.registrationURL
@@ -44,11 +29,11 @@
    * Get the plugin icon
    * Generate and return the component for the plugin icon.
    */
-  const componentPluginIcon = (iconUrl) => {
-    if (!iconUrl) return "admin-generic"; // Fallback icon to a default one
+  const componentPluginIcon = (iconURL) => {
+    if (!iconURL) return "admin-generic"; // Fallback icon to a default one
 
     return createElement("img", {
-      src: iconUrl,
+      src: iconURL,
       style: { width: "18.5px", height: "18.5px" },
       alt: "Stupid Simple Meta Tags Icon",
       className: "ssmt_icon",
@@ -62,6 +47,33 @@
    * Even the manu menu dropdown item is created here.
    */
   const componentSSMTPlugin = (props) => {
+    const [metaTagRows, setMetaTagRows] = useState(props.metaTagRows);
+
+    useEffect(() => {
+      setMetaTagRows(props.metaTagRows);
+    }, [props.metaTagRows]);
+
+    const updateMetaTagRow = (index, key, value) => {
+      const updated = [...metaTagRows];
+      updated[index][key] = value;
+      setMetaTagRows(updated);
+      props.setMetaTagRows(updated);
+    };
+
+    const deleteMetaTagRow = (index) => {
+      const updated = [...metaTagRows];
+      updated.splice(index, 1);
+      setMetaTagRows(updated);
+      props.setMetaTagRows(updated);
+    };
+
+    const addMetaTagRow = () => {
+      const updated = [...metaTagRows];
+      updated.push({ order: 0, value: "" });
+      setMetaTagRows(updated);
+      props.setMetaTagRows(updated);
+    };
+
     props.isLicensed = isLicensed;
     props.registrationURL = registrationURL;
     return createElement(
@@ -71,7 +83,7 @@
         PluginSidebarMoreMenuItem,
         {
           target: "ssmt-gutenberg-editor-extension",
-          icon: componentPluginIcon(iconUrl),
+          icon: componentPluginIcon(iconURL),
         },
         __("Stupid Simple Meta Tags", "ssmt")
       ),
@@ -80,9 +92,15 @@
         {
           name: "ssmt-gutenberg-editor-extension",
           title: __("Stupid Simple Meta Tags", "ssmt"),
-          icon: componentPluginIcon(iconUrl),
+          icon: componentPluginIcon(iconURL),
         },
-        componentSidePanel(props)
+        componentSidePanel({
+          ...props,
+          metaTagRows,
+          updateMetaTagRow,
+          deleteMetaTagRow,
+          addMetaTagRow,
+        })
       )
     );
   };
@@ -160,7 +178,6 @@
         "a",
         {
           href: props.registrationURL,
-          target: "_blank",
           style: {
             backgroundColor: "#007CBA",
             color: "white",
@@ -190,26 +207,6 @@
    * Also this will contain the add new button.
    */
   const componentMetaTagList = (props) => {
-    props.deleteMetaTagRow = (index) => {
-      const updated = [...props.metaValue];
-      updated.splice(index, 1);
-      props.setMetaValue(updated);
-    };
-
-    addMetaTagRow = () => {
-      const updated = [...props.metaValue];
-      updated.push({ order: 0, value: "" });
-      props.setMetaValue(updated);
-    };
-
-    props.updateMetaTagRow = (index, key, value) => {
-      const updated = [...props.metaValue];
-      updated[index][key] = value;
-      props.setMetaValue(updated);
-    };
-
-    console.log(props.metaValue);
-
     return createElement(
       Fragment,
       null,
@@ -222,7 +219,7 @@
         createElement(
           "tbody",
           null,
-          props.metaValue.map((singleMetaRow, index) =>
+          props.metaTagRows.map((singleMetaRow, index) =>
             componentSingleMetaTagRow(props, singleMetaRow, index)
           )
         )
@@ -231,7 +228,7 @@
         Button,
         {
           isSecondary: true,
-          onClick: addMetaTagRow,
+          onClick: props.addMetaTagRow,
         },
         __("+ Add New", "ssmt")
       )
@@ -279,6 +276,7 @@
     }
 
     function onChangeOrder(newOrder) {
+      newOrder = parseInt(newOrder);
       props.updateMetaTagRow(index, "order", newOrder);
     }
     function onChangeValue(newValue) {
@@ -289,21 +287,11 @@
       props.deleteMetaTagRow(index);
     }
 
-    /**
-		 * {
-        key: index,
-        style: {
-          display: "flex",
-          gap: "4px",
-          marginBottom: "8px",
-          alignItems: "center",
-        },
-      },
-		 */
-
     return createElement(
       "tr",
-      null,
+      {
+        key: index,
+      },
       createElement(
         "td",
         null,
@@ -344,12 +332,11 @@
   const applyWithSelect = withSelect((select) => {
     const store = select("core/editor") || select("core/block-editor");
     if (!store) {
-      return { metaValue: "[]" };
+      return { metaTagRows: "[]" };
     }
     const meta = store.getEditedPostAttribute("meta");
-    console.log(meta);
     return {
-      metaValue:
+      metaTagRows:
         meta && meta.ssmt_advanced_settings_gutenberg_data
           ? meta.ssmt_advanced_settings_gutenberg_data
           : [],
@@ -359,12 +346,13 @@
   const applyWithDispatch = withDispatch((dispatch) => {
     const store = dispatch("core/editor") || dispatch("core/block-editor");
     if (!store) {
-      return { setMetaValue: () => {} };
+      return { setMetaTagRows: () => {} };
     }
     return {
-      setMetaValue: (newValue) => {
+      setMetaTagRows: (metaTagRows) => {
+        metaTagRows = [...metaTagRows];
         store.editPost({
-          meta: { ssmt_advanced_settings_gutenberg_data: newValue },
+          meta: { ssmt_advanced_settings_gutenberg_data: metaTagRows },
         });
       },
     };
@@ -377,28 +365,6 @@
 
   registerPlugin("ssmt-gutenberg-editor-extension", {
     render: SSMTPluginSidebar,
-    icon: componentPluginIcon(iconUrl),
+    icon: componentPluginIcon(iconURL),
   });
-
-  if (!isLicensed) {
-    wp.data.subscribe(() => {
-      const editPostStore = wp.data.select("core/edit-post");
-      if (!editPostStore) return;
-      const currentSidebar = editPostStore.getActiveGeneralSidebarName();
-      const iconComponent = document.querySelectorAll(".ssmt_icon");
-
-      if (
-        currentSidebar ===
-        "ssmt-gutenberg-editor-extension/ssmt-gutenberg-editor-extension"
-      ) {
-        iconComponent.forEach((icon) => {
-          icon.src = iconUrlLight;
-        });
-      } else {
-        iconComponent.forEach((icon) => {
-          icon.src = iconUrlDark;
-        });
-      }
-    });
-  }
 })();

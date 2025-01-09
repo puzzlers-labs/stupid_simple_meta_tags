@@ -5,12 +5,8 @@ $current_page_url = urlencode($current_page_url);
 ?>
 <div class="wrap">
     <div style="text-align: center; margin-bottom: 20px;">
-        <a href="https://puzzlers-labs.com" target="_blank">
-            <?php if (ssmt_is_licensed()): ?>
-                <img src="<?php echo SSMT_PLUGIN_URL . 'assets/images/ssmt_licensed_mini_banner.png'; ?>" alt="Puzzlers Labs Logo" style="max-width: 600px;">
-            <?php else: ?>
-                <img src="<?php echo SSMT_PLUGIN_URL . 'assets/images/ssmt_mini_banner.png'; ?>" alt="Puzzlers Labs Logo" style="max-width: 600px;">
-            <?php endif; ?>
+        <a href="https://ssmt.app" target="_blank">
+            <img src="<?php echo SSMT_PLUGIN_URL . 'assets/images/ssmt_mini_banner.png'; ?>" alt="Puzzlers Labs Logo" style="max-width: 600px;">
         </a>
     </div>
 

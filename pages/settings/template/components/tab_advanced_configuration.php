@@ -3,11 +3,13 @@ $meta_configuration_list        = $_POST['ssmt_basic_configuration_meta_configur
 $validation_error_row_indexes   = get_transient('ssmt_basic_configuration_meta_configuration_list_validation_error_row_indexes');
 $validation_error_row_indexes   = is_array($validation_error_row_indexes) ? $validation_error_row_indexes : [];
 $is_licesned                    = ssmt_is_licensed();
+$current_page_url               = 'admin.php?page=ssmt_settings&tab=advanced_configuration';
+$current_page_url               = urlencode($current_page_url);
 ?>
 <div>
     <?php if (!$is_licesned): ?>
         <div class="notice notice-warning is-dismissible">
-            <p><strong>Unlicensed:</strong> Some advanced features are disabled. <a href="<?php echo esc_url(admin_url('admin.php?page=ssmt_register_license')); ?>">Register for free</a> to enable full functionality.</p>
+            <p><strong>Unlicensed:</strong> Some advanced features are disabled. <a href="<?php echo esc_url(admin_url('admin.php?page=ssmt_register_license&return_url=' . $current_page_url)); ?>">Register for free</a> to enable full functionality.</p>
         </div>
     <?php endif; ?>
     <p>This section allows you to manage and customize the settings for dynamic inputs. You can add, remove, or edit entries as needed, ensuring flexibility and ease of use. Each tab stores its own unique list of inputs, giving you complete control over your configuration.

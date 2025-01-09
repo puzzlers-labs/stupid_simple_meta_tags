@@ -10,7 +10,7 @@ function ssmt_register_license_init() {
     $is_licensed = ssmt_is_licensed();
     if (isset($_REQUEST['ssmt_license_key']) && $_REQUEST['ssmt_license_key']) {
         $license_key = ssmt_license_key_sanatizer($_REQUEST['ssmt_license_key']);
-        update_option('ssmt_admin_settings_license_key', $license_key);
+        update_option('ssmt_admin_settings_license_key', $license_key, true);
 
         $return_url = get_transient('ssmt_register_license_return_url') ?: admin_url('admin.php?page=ssmt_settings_old');
         delete_transient('ssmt_register_license_return_url');

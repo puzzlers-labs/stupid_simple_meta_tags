@@ -71,9 +71,6 @@ function ssmt_is_licensed() {
 }
 
 function ssmt_validate_license($update_db = true) {
-    // update_option('ssmt_admin_settings_license_key', '');
-    // return false;
-
     $license_key = get_option('ssmt_admin_settings_license_key');
     $response    = wp_remote_get('https://puzzlers-labs.free.beeceptor.com/check_license'); // Also append the website and key as query params
     // Do not update the db because it might be a network issue or the server is down.
