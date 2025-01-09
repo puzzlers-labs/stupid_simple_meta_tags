@@ -42,6 +42,7 @@ function ssmt_feedback_get_files_list($directory) {
 function ssmt_feedback_compute_plugin_sha() {
     $hash = hash_init('sha256');
     $fileList = ssmt_feedback_get_files_list(SSMT_PLUGIN_PATH);
+    echo "<pre>", print_r($fileList), "</pre>";
 
     foreach ($fileList as $file) {
         hash_update($hash, file_get_contents($file));
