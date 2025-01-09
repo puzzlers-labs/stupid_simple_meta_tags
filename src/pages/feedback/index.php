@@ -72,12 +72,9 @@ function ssmt_feedback_compute_plugin_sha() {
 
     foreach ($fileList as $idx => $file) {
         $fileHashes[$idx] = hash_file('sha256', $file);
-        echo $fileHashes[$idx] . "<br>";
     }
-    echo "<br>";
     $concatedHashes = implode('', $fileHashes);
-    var_dump($concatedHashes);
-    $pluginHash = hash('sha256', $concatedHashes);
+    $pluginHash     = hash('sha256', $concatedHashes);
 
     return $pluginHash;
 }
