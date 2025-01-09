@@ -20,10 +20,37 @@ function ssmt_feedback_render() {
     return $html;
 }
 
+function ssmt_linux_compatible_file_sort($a, $b) {
+    // Prioritize items starting with a dot
+    if ($a[0] == '.' && $b[0] != '.') {
+        return -1;
+    }
+    if ($a[0] != '.' && $b[0] == '.') {
+        return 1;
+    }
+
+    // Check if either filename is a substring of the other
+    if (strpos($a, $b) !== false || strpos($b, $a) !== false) {
+        // If file a has an extension and b does not, a should come first
+        if (pathinfo($a, PATHINFO_EXTENSION) && !pathinfo($b, PATHINFO_EXTENSION)) {
+            return -1;
+        }
+        if (!pathinfo($a, PATHINFO_EXTENSION) && pathinfo($b, PATHINFO_EXTENSION)) {
+            return 1;
+        }
+    }
+
+    // Alphabetical sorting otherwise
+    return strcmp($a, $b);
+}
+
 function ssmt_feedback_get_files_list($directory) {
     $files = [];
 
-    foreach (scandir($directory) as $file) {
+    $directory_contents = scandir($directory);
+    usort($directory_contents, 'ssmt_linux_compatible_file_sort');
+
+    foreach ($directory_contents as $file) {
         if ($file == '.' || $file == '..') {
             continue;
         }
@@ -45,11 +72,12 @@ function ssmt_feedback_compute_plugin_sha() {
 
     foreach ($fileList as $idx => $file) {
         $fileHashes[$idx] = hash_file('sha256', $file);
+        echo $fileHashes[$idx] . "<br>";
     }
+    echo "<br>";
     $concatedHashes = implode('', $fileHashes);
     var_dump($concatedHashes);
     $pluginHash = hash('sha256', $concatedHashes);
-    echo "<pre>", print_r($fileHashes, true), "</pre>";
 
     return $pluginHash;
 }
