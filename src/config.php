@@ -1,6 +1,6 @@
 <?php
 
-define('SSMT_VERSION', '0.2.0');
+define('SSMT_VERSION', '0.3.7');
 
 define('SSMT_META_KEY_OPTIONS', [
     'og:type',

@@ -27,7 +27,10 @@ function ssmt_initialized() {
     add_action('admin_init', 'ssmt_form_submission_validator');
     add_action('init', 'ssmt_register_gutenberg_extension');
 
-    add_action('wp_ajax_ssmt_validate_license', 'ssmt_register_license_validator');
+    wp_enqueue_style('loading-spinner-css', SSMT_PLUGIN_URL . 'assets/css/loading_spinner.css');
+
+    add_action('wp_ajax_ssmt_validate_license',  'ssmt_register_license_validator');
+    add_action('wp_ajax_ssmt_check_for_updates', 'ssmt_new_updates_checker');
 }
 
 function ssmt_setup_menu() {
@@ -95,6 +98,17 @@ function ssmt_register_license_validator() {
         wp_send_json_success(array('license_status' => 'valid'));
     } else {
         wp_send_json_success(array('license_status' => 'invalid'));
+    }
+    wp_die();
+}
+
+function ssmt_new_updates_checker() {
+    $is_ssmt_update_available = ssmt_is_update_available();
+
+    if ($is_ssmt_update_available) {
+        wp_send_json_success(array('update_available' => true));
+    } else {
+        wp_send_json_success(array('update_available' => false));
     }
     wp_die();
 }

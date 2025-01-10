@@ -3,10 +3,14 @@
 function ssmt_feedback_init() {
     add_filter('admin_footer_text', 'add_ssmt_footer_message');
 
-    wp_enqueue_script('settings-js', SSMT_PLUGIN_URL . 'assets/js/settings.js');
+    wp_enqueue_style('common-css', SSMT_PLUGIN_URL . 'assets/css/common.css');
+    wp_enqueue_style('feedback-css', SSMT_PLUGIN_URL . 'assets/css/feedback.css');
 
-    wp_enqueue_style('settings-css', SSMT_PLUGIN_URL . 'assets/css/common.css');
-    wp_enqueue_style('settings-css', SSMT_PLUGIN_URL . 'assets/css/settings.css');
+    wp_enqueue_script('feedback-js', SSMT_PLUGIN_URL . 'assets/js/feedback.js');
+    wp_localize_script('feedback-js', 'feedback_data', array(
+        'adminAjaxURL'  => admin_url('admin-ajax.php'),
+    ));
+
     echo ssmt_feedback_render();
 }
 
@@ -64,6 +68,40 @@ function ssmt_feedback_get_files_list($directory) {
     }
 
     return $files;
+}
+
+function get_sha_for_version($version_to_check) {
+    $fileContent = file_get_contents('https://raw.githubusercontent.com/puzzlers-labs/stupid_simple_meta_tags/refs/heads/main/checksums.txt');
+
+    if ($fileContent === false) {
+        return '';
+    }
+
+    $lines = explode("\n", $fileContent);
+    foreach ($lines as $single_line) {
+        // Skip empty lines, row breaker lines and lines that have the header information
+        if (trim($single_line) === '' || strpos($single_line, 'VERSION') !== false || strpos($single_line, '=') !== false) {
+            continue;
+        }
+
+        $single_line_parts = array_map('trim', explode('|', $single_line));
+
+        // Ensure the line has the expected structure
+        if (count($single_line_parts) < 3) {
+            continue;
+        }
+
+        // Extract the version and SHA
+        $release_version = $single_line_parts[0];
+        $release_sha = $single_line_parts[1];
+        echo "<pre>", print_r($single_line_parts), "</pre>";
+
+        // Check if the version matches
+        if ($release_version == $version_to_check) {
+            return $release_sha;
+        }
+    }
+    return '';
 }
 
 function ssmt_feedback_compute_plugin_sha() {

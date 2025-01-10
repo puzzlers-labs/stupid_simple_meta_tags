@@ -25,6 +25,7 @@ function ssmt_register_license_init() {
     add_filter('admin_footer_text', 'add_ssmt_footer_message');
 
     wp_enqueue_style('common-css', SSMT_PLUGIN_URL . 'assets/css/common.css');
+    wp_enqueue_style('loading-spinner-css', SSMT_PLUGIN_URL . 'assets/css/loading_spinner.css');
     wp_enqueue_style('register-license-css', SSMT_PLUGIN_URL . 'assets/css/register_license.css');
 
     wp_enqueue_script('register-license-js', SSMT_PLUGIN_URL . 'assets/js/register_license.js');

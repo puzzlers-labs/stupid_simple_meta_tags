@@ -73,6 +73,7 @@ function ssmt_is_licensed() {
 function ssmt_validate_license($update_db = true) {
     $license_key = get_option('ssmt_admin_settings_license_key');
     $response    = wp_remote_get('https://puzzlers-labs.free.beeceptor.com/check_license'); // Also append the website and key as query params
+
     // Do not update the db because it might be a network issue or the server is down.
     // That does not mean the license is invalid.
     if (is_wp_error($response)) {
@@ -90,5 +91,30 @@ function ssmt_validate_license($update_db = true) {
     if ($update_db) {
         update_option('ssmt_admin_settings_license_key', '');
     }
+    return false;
+}
+
+function ssmt_is_update_available() {
+    $current_version = SSMT_VERSION;
+    $response        = wp_remote_get('https://api.github.com/repos/puzzlers-labs/stupid_simple_meta_tags/releases/latest');
+
+    // Since we do not know the latest version, we assume it is the current version.
+    if (is_wp_error($response)) {
+        return false;
+    }
+
+    $response_body = wp_remote_retrieve_body($response);
+    $response_data = json_decode($response_body, true);
+
+    if (isset($response_data['tag_name'])) {
+        $latest_version = $response_data['tag_name'];
+    }
+
+    $latest_version = str_replace('v', '', $latest_version);
+    
+    if (version_compare($current_version, $latest_version, '<')) {
+        return true;
+    }
+
     return false;
 }
