@@ -1,0 +1,10 @@
+.loader-container {
+  position: relative;
+}
+
+.loader {
+  display: inline;
+  position: absolute;
+  /* top: 5px; */
+  left: 0;
+}
