@@ -77,11 +77,15 @@ $current_sha      = ssmt_feedback_compute_plugin_sha();
                 <td><strong>SHA:</strong></td>
                 <td>
                     <?php echo esc_html($current_sha); ?>
-                    -
-                    <?php echo esc_html($public_sha); ?>
-                    <span style="color: green; margin-left: 5px;">
-                        &#10003;
-                    </span>
+                    <?php if ($current_sha === $public_sha) : ?>
+                        <span style="color: green; margin-left: 5px;">
+                            &#10003;
+                        </span>
+                    <?php else: ?>
+                        <span style="color: red; margin-left: 5px;">
+                            &times;
+                        </span>
+                    <?php endif; ?>
                     <a href="https://raw.githubusercontent.com/puzzlers-labs/stupid_simple_meta_tags/refs/heads/main/checksums.txt" target="_blank"><i>(Verify manually)</i></a>
                 </td>
             </tr>

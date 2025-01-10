@@ -93,8 +93,7 @@ function get_sha_for_version($version_to_check) {
 
         // Extract the version and SHA
         $release_version = $single_line_parts[0];
-        $release_sha = $single_line_parts[1];
-        echo "<pre>", print_r($single_line_parts), "</pre>";
+        $release_sha     = $single_line_parts[1];
 
         // Check if the version matches
         if ($release_version == $version_to_check) {
