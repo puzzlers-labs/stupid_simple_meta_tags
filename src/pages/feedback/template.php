@@ -18,6 +18,7 @@ $current_sha      = ssmt_feedback_compute_plugin_sha();
         <p>
             <a href="mailto:hello@ssmt.app">Contact</a> |
             <a href="https://ssmt.app/privacy-policy" target="_blank">Privacy Policy</a> |
+            <a href="https://ssmt.app/terms-and-conditions" target="_blank">Terms and Conditions</a> |
             <a href="https://github.com/puzzlers-labs/stupid_simple_meta_tags" target="_blank">GitHub Repository</a>
         </p>
     </div>

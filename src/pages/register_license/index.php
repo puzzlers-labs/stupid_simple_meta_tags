@@ -18,7 +18,8 @@ function ssmt_register_license_init() {
     $is_licensed = ssmt_is_licensed();
     $register_license_url = "";
     if (!$is_licensed) {
-        $register_license_url = 'https://puzzlers-labs.free.beeceptor.com/register_license';
+        $register_return_url  = admin_url('admin.php?page=ssmt_register_license');
+        $register_license_url = 'https://ssmt.app/register-license?return_url=' . urlencode($register_return_url);
     }
     $validate_license_link = 'https://puzzlers-labs.free.beeceptor.com/check_license';
 

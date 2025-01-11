@@ -55,7 +55,9 @@
 
     const updateMetaTagRow = (index, key, value) => {
       const updated = [...metaTagRows];
-      updated[index][key] = value;
+      const newRow = { ...updated[index] };
+      newRow[key] = value;
+      updated[index] = newRow;
       setMetaTagRows(updated);
       props.setMetaTagRows(updated);
     };
@@ -117,7 +119,7 @@
         "div",
         { style: { marginBottom: "1em", position: "relative" } },
         componentUnlicensedOverlay(props),
-        componentMetaTagList(props)
+        componentMetaTagList(props),
       )
     );
   };
@@ -207,6 +209,10 @@
    * Also this will contain the add new button.
    */
   const componentMetaTagList = (props) => {
+    let rows = props.metaTagRows;
+    if(!props.isLicensed && rows.length == 0) {
+      rows = [{ order: 0, value: "" }, { order: 0, value: "" }, { order: 0, value: "" }, { order: 0, value: "" }];
+    }
     return createElement(
       Fragment,
       null,
@@ -219,7 +225,7 @@
         createElement(
           "tbody",
           null,
-          props.metaTagRows.map((singleMetaRow, index) =>
+          rows.map((singleMetaRow, index) =>
             componentSingleMetaTagRow(props, singleMetaRow, index)
           )
         )
@@ -235,6 +241,11 @@
     );
   };
 
+
+  /**
+   * Meta Title Row Component
+   * This will contain the title row for the meta tags.
+   */
   const componentMetaTitleRow = (props) => {
     return createElement(
       "tr",
@@ -277,6 +288,9 @@
 
     function onChangeOrder(newOrder) {
       newOrder = parseInt(newOrder);
+      if (isNaN(newOrder)) {
+        newOrder = 0;
+      }
       props.updateMetaTagRow(index, "order", newOrder);
     }
     function onChangeValue(newValue) {
@@ -329,6 +343,9 @@
     );
   };
 
+  /**
+   * Apply withSelect and withDispatch
+   */
   const applyWithSelect = withSelect((select) => {
     const store = select("core/editor") || select("core/block-editor");
     if (!store) {
@@ -358,6 +375,10 @@
     };
   });
 
+  /**
+   * Compose the components
+   * This will compose the components with withSelect and withDispatch
+   */
   const SSMTPluginSidebar = compose(
     applyWithSelect,
     applyWithDispatch
