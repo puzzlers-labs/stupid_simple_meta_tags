@@ -78,43 +78,6 @@ function ssmt_settings_tab_advanced_configuration_render() {
     return $html;
 }
 
-function ssmt_settings_tab_advanced_configuration_meta_tags_table_row_render($ssmt_settings_tab_advanced_configuration_meta_tags_table_row_render_config = []) {
-    ob_start();
-    require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_advanced_configuration/meta_tags_table_row.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
-}
-
-function ssmt_settings_tab_advanced_configuration_meta_tags_table_column_titles_render() {
-    ob_start();
-    require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_advanced_configuration/meta_tags_table_column_titles.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
-}
-
-function ssmt_settings_tab_advanced_configuration_meta_tags_table_count_render($ssmt_settings_tab_advanced_configuration_meta_tags_table_count) {
-    ob_start();
-    require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_advanced_configuration/meta_tags_table_count.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
-}
-
-function ssmt_settings_tab_advanced_configuration_meta_tags_table_bulk_actions() {
-    ob_start();
-    require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_advanced_configuration/meta_tags_table_bulk_actions.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
-}
-
-
 
 
 /**
@@ -185,7 +148,13 @@ function ssmt_advanced_settings_validate($input) {
     if (isset($input['ssmt_advanced_settings_enable_caching']) && $input['ssmt_advanced_settings_enable_caching'] !== '1') {
         $is_valid = false;
     }
-    if (isset($input['ssmt_advanced_settings_use_dynamic_tags']) && $input['ssmt_advanced_settings_use_dynamic_tags'] !== '1') {
+    if (isset($input['ssmt_advanced_settings_enable_gutenberg_plugin']) && $input['ssmt_advanced_settings_enable_gutenberg_plugin'] !== '1') {
+        $is_valid = false;
+    }
+    if (isset($input['ssmt_advanced_settings_enable_classic_editor_plugin']) && $input['ssmt_advanced_settings_enable_classic_editor_plugin'] !== '1') {
+        $is_valid = false;
+    }
+    if (isset($input['ssmt_advanced_settings_enable_custom_fields']) && $input['ssmt_advanced_settings_enable_custom_fields'] !== '1') {
         $is_valid = false;
     }
 
@@ -242,13 +211,15 @@ function ssmt_basic_configuration_meta_configuration_list_sanitize($input) {
 
 function ssmt_advanced_settings_sanitize($input) {
     $sanitized_data = [];
-    $sanitized_data['ssmt_advanced_settings_show_ssmt_branding'] = isset($input['ssmt_advanced_settings_show_ssmt_branding']) ? true : false;
-    $sanitized_data['ssmt_advanced_settings_enable_caching']     = isset($input['ssmt_advanced_settings_enable_caching'])     ? true : false;
-    $sanitized_data['ssmt_advanced_settings_use_dynamic_tags']   = isset($input['ssmt_advanced_settings_use_dynamic_tags'])   ? true : false;
+    $sanitized_data['ssmt_advanced_settings_show_ssmt_branding']            = isset($input['ssmt_advanced_settings_show_ssmt_branding'])            ? true : false;
+    $sanitized_data['ssmt_advanced_settings_enable_caching']                = isset($input['ssmt_advanced_settings_enable_caching'])                ? true : false;
+    $sanitized_data['ssmt_advanced_settings_enable_gutenberg_plugin']       = isset($input['ssmt_advanced_settings_enable_gutenberg_plugin'])       ? true : false;
+    $sanitized_data['ssmt_advanced_settings_enable_classic_editor_plugin']  = isset($input['ssmt_advanced_settings_enable_classic_editor_plugin'])  ? true : false;
+    $sanitized_data['ssmt_advanced_settings_enable_custom_fields']          = isset($input['ssmt_advanced_settings_enable_custom_fields'])          ? true : false;
 
     if (!ssmt_is_licensed()) {
         $sanitized_data['ssmt_advanced_settings_show_ssmt_branding'] = true;
-        $sanitized_data['ssmt_advanced_settings_use_dynamic_tags']   = false;
+        $sanitized_data['ssmt_advanced_settings_enable_caching']     = false;
     }
 
     return $sanitized_data;

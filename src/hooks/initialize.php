@@ -10,6 +10,7 @@
 require_once SSMT_PLUGIN_PATH . 'pages/settings/index.php';
 require_once SSMT_PLUGIN_PATH . 'pages/feedback/index.php';
 require_once SSMT_PLUGIN_PATH . 'pages/register_license/index.php';
+require_once SSMT_PLUGIN_PATH . 'pages/classic_editor_meta_box/index.php';
 
 function ssmt_initialized() {
     add_action('wp_head', 'ssmt_render_meta_tags');
@@ -26,6 +27,8 @@ function ssmt_initialized() {
 
     add_action('admin_init', 'ssmt_form_submission_validator');
     add_action('init', 'ssmt_register_gutenberg_extension');
+    add_action('add_meta_boxes', 'ssmt_classic_editor_add_meta_box');
+    add_action('save_post', 'ssmt_classic_editor_save_meta_tags');
 
     wp_enqueue_style('loading-spinner-css', SSMT_PLUGIN_URL . 'assets/css/loading_spinner.css');
 
@@ -160,4 +163,15 @@ function ssmt_gutenberg_editor_extension() {
         'isLicensed'      => $is_licensed,
         'registrationURL' => $registration_url,
     ]);
+}
+
+function ssmt_classic_editor_add_meta_box() {
+    add_meta_box(
+        'ssmt_classic_editor_meta_box',
+        'Stupid Simple Meta Tags',
+        'ssmt_classic_editor_meta_box_render',
+        'post',
+        'normal',
+        'high'
+    );
 }

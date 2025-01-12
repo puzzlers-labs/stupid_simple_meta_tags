@@ -45,15 +45,17 @@ function ssmt_form_submission_validator() {
             $sanitized_data = ssmt_advanced_settings_sanitize($_POST);
             update_option('ssmt_advanced_settings_show_ssmt_branding', $sanitized_data['ssmt_advanced_settings_show_ssmt_branding'], true);
             update_option('ssmt_advanced_settings_enable_caching', $sanitized_data['ssmt_advanced_settings_enable_caching']);
-            update_option('ssmt_advanced_settings_use_dynamic_tags', $sanitized_data['ssmt_advanced_settings_use_dynamic_tags']);
-            // update_option('ssmt_advanced_settings_dynamic_tags_configuration_list', $sanitized_data['ssmt_advanced_settings_dynamic_tags_configuration_list']);
+            update_option('ssmt_advanced_settings_enable_gutenberg_plugin', $sanitized_data['ssmt_advanced_settings_enable_gutenberg_plugin']);
+            update_option('ssmt_advanced_settings_enable_classic_editor_plugin', $sanitized_data['ssmt_advanced_settings_enable_classic_editor_plugin']);
+            update_option('ssmt_advanced_settings_enable_custom_fields', $sanitized_data['ssmt_advanced_settings_enable_custom_fields']);
             add_action('admin_notices', function () {
                 echo '<div class="notice notice-success is-dismissible"><p>Great! Your settings were saved without any issues.</p></div>';
             });
             unset($_POST['ssmt_advanced_settings_show_ssmt_branding']);
             unset($_POST['ssmt_advanced_settings_enable_caching']);
-            unset($_POST['ssmt_advanced_settings_use_dynamic_tags']);
-            // unset($_POST['ssmt_advanced_settings_dynamic_tags_configuration_list']);
+            unset($_POST['ssmt_advanced_settings_enable_gutenberg_plugin']);
+            unset($_POST['ssmt_advanced_settings_enable_classic_editor_plugin']);
+            unset($_POST['ssmt_advanced_settings_enable_custom_fields']);
         } else {
             add_action('admin_notices', function () {
                 echo '<div class="notice notice-error is-dismissible"><p>Error: The input provided is invalid. Please check and try again.</p></div>';

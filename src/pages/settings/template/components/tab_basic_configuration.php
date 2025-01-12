@@ -9,15 +9,11 @@ delete_transient('ssmt_basic_configuration_meta_configuration_list_validation_er
 <div>
     <div class="section-description">
         <p>
-            This section allows you to manage and customize the settings for dynamic inputs. You can add, remove, or edit entries as needed, ensuring flexibility and ease of use. Each tab stores its own unique list of inputs, giving you complete control over your configuration.
+            The Basic Configuration section is for setting up the essential details of your website. Here, you can add a site title, description, and a default image that will appear when your site is shared on social media or searched online. It's a quick and simple way to make sure your site looks professional.
         </p>
     </div>
     <h1>
         Set Meta Tags
-        <div class="help-icon">
-            <span class="tooltip-text">This is the help text explaining the feature or section.</span>
-            ?
-        </div>
     </h1>
 
     <datalist id="ssmt_meta_key_options">
@@ -28,7 +24,6 @@ delete_transient('ssmt_basic_configuration_meta_configuration_list_validation_er
 
     <form method="post" action="">
         <?php wp_nonce_field('ssmt_basic_configuration', 'ssmt_basic_configuration_nonce'); ?>
-        <input type="hidden" id="bulk_actions_nonce" value="<?php echo wp_create_nonce('ssmt_basic_configuration_bulk_action'); ?>" />
 
         <div class="tablenav top">
             <?php echo ssmt_settings_tab_basic_configuration_meta_tags_table_bulk_actions(); ?>
