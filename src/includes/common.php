@@ -24,7 +24,8 @@ function ssmt_form_submission_validator() {
             });
         } elseif (ssmt_basic_configuration_meta_configuration_list_validate($_POST['ssmt_basic_configuration_meta_configuration_list'])) {
             $sanitized_data = ssmt_basic_configuration_meta_configuration_list_sanitize($_POST['ssmt_basic_configuration_meta_configuration_list']);
-            update_option('ssmt_basic_configuration_meta_configuration_list', $sanitized_data, true);
+            $is_enable_caching = ssmt_is_enable_caching();
+            update_option('ssmt_basic_configuration_meta_configuration_list', $sanitized_data, $is_enable_caching);
             add_action('admin_notices', function () {
                 echo '<div class="notice notice-success is-dismissible"><p>Great! Your settings were saved without any issues.</p></div>';
             });
@@ -44,7 +45,7 @@ function ssmt_form_submission_validator() {
         } elseif (ssmt_advanced_settings_validate($_POST)) {
             $sanitized_data = ssmt_advanced_settings_sanitize($_POST);
             update_option('ssmt_advanced_settings_show_ssmt_branding', $sanitized_data['ssmt_advanced_settings_show_ssmt_branding'], true);
-            update_option('ssmt_advanced_settings_enable_caching', $sanitized_data['ssmt_advanced_settings_enable_caching']);
+            update_option('ssmt_advanced_settings_enable_caching', $sanitized_data['ssmt_advanced_settings_enable_caching'], true);
             update_option('ssmt_advanced_settings_enable_gutenberg_plugin', $sanitized_data['ssmt_advanced_settings_enable_gutenberg_plugin']);
             update_option('ssmt_advanced_settings_enable_classic_editor_plugin', $sanitized_data['ssmt_advanced_settings_enable_classic_editor_plugin']);
             update_option('ssmt_advanced_settings_enable_custom_fields', $sanitized_data['ssmt_advanced_settings_enable_custom_fields']);
@@ -131,4 +132,8 @@ function ssmt_is_classic_editor_enabled() {
 
 function ssmt_is_custom_fields_enabled() {
     return get_option('ssmt_advanced_settings_enable_custom_fields', false);
+}
+
+function ssmt_is_enable_caching() {
+    return get_option('ssmt_advanced_settings_enable_caching', false);
 }
