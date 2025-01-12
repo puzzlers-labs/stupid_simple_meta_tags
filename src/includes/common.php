@@ -120,3 +120,15 @@ function ssmt_is_update_available() {
 
     return false;
 }
+
+function ssmt_is_gutenberg_enabled() {
+    return get_option('ssmt_advanced_settings_enable_gutenberg_plugin', false);
+}
+
+function ssmt_is_classic_editor_enabled() {
+    return get_option('ssmt_advanced_settings_enable_classic_editor_plugin', false);
+}
+
+function ssmt_is_custom_fields_enabled() {
+    return get_option('ssmt_advanced_settings_enable_custom_fields', false);
+}

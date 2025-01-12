@@ -1,4 +1,5 @@
 {
   "intelephense.diagnostics.undefinedMethods": true,
-  "intelephense.diagnostics.undefinedFunctions": false
+  "intelephense.diagnostics.undefinedFunctions": false,
+  "intelephense.format.braces": "k&r"
 }

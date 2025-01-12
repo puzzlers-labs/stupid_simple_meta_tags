@@ -8,4 +8,15 @@
  */
 
 function ssmt_activated() {
+/**
+  $default_settings = [
+        'display_ssmt_branding' => true,
+        'cache' => false,
+    ];
+
+    $current_settings = get_option('ssmt_settings', []);
+    $new_settings = wp_parse_args($current_settings, $default_settings);
+
+    update_option('ssmt_settings', $new_settings);
+     */
 }
