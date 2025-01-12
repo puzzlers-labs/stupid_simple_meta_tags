@@ -28,47 +28,6 @@ To get started with SSMT (Stupid Simple Meta Tags), install and activate the plu
 = 1.0.0 - 2025-01-13 =
 
 * Test
-= 0.4.1 - 2025-01-13 =
+= 0.4.2 - 2025-01-12 =
 
-{
-  "url": "https://api.github.com/repos/puzzlers-labs/stupid_simple_meta_tags/releases/194310289",
-  "assets_url": "https://api.github.com/repos/puzzlers-labs/stupid_simple_meta_tags/releases/194310289/assets",
-  "upload_url": "https://uploads.github.com/repos/puzzlers-labs/stupid_simple_meta_tags/releases/194310289/assets{?name,label}",
-  "html_url": "https://github.com/puzzlers-labs/stupid_simple_meta_tags/releases/tag/v0.4.1",
-  "id": 194310289,
-  "author": {
-    "login": "aayusharyan",
-    "id": 16634228,
-    "node_id": "MDQ6VXNlcjE2NjM0MjI4",
-    "avatar_url": "https://avatars.githubusercontent.com/u/16634228?v=4",
-    "gravatar_id": "",
-    "url": "https://api.github.com/users/aayusharyan",
-    "html_url": "https://github.com/aayusharyan",
-    "followers_url": "https://api.github.com/users/aayusharyan/followers",
-    "following_url": "https://api.github.com/users/aayusharyan/following{/other_user}",
-    "gists_url": "https://api.github.com/users/aayusharyan/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/aayusharyan/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/aayusharyan/subscriptions",
-    "organizations_url": "https://api.github.com/users/aayusharyan/orgs",
-    "repos_url": "https://api.github.com/users/aayusharyan/repos",
-    "events_url": "https://api.github.com/users/aayusharyan/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/aayusharyan/received_events",
-    "type": "User",
-    "user_view_type": "public",
-    "site_admin": false
-  },
-  "node_id": "RE_kwDONktxx84LlPCR",
-  "tag_name": "v0.4.1",
-  "target_commitish": "main",
-  "name": "v0.4.1",
-  "draft": false,
-  "prerelease": false,
-  "created_at": "2025-01-12T16:56:37Z",
-  "published_at": "2025-01-12T17:04:08Z",
-  "assets": [
-
-  ],
-  "tarball_url": "https://api.github.com/repos/puzzlers-labs/stupid_simple_meta_tags/tarball/v0.4.1",
-  "zipball_url": "https://api.github.com/repos/puzzlers-labs/stupid_simple_meta_tags/zipball/v0.4.1",
-  "body": "This is a release with CI/CD in place.\r\n\r\n**Full Changelog**: https://github.com/puzzlers-labs/stupid_simple_meta_tags/compare/v0.3.10...v0.4.1"
-}
+"Testing auto changelog\r\n**Full Changelog**: https://github.com/puzzlers-labs/stupid_simple_meta_tags/compare/v0.4.1...v0.4.2"
