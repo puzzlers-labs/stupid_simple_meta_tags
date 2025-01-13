@@ -9,7 +9,7 @@ $current_sha      = ssmt_feedback_compute_plugin_sha();
 <div class="wrap">
     <div style="text-align: center; margin-bottom: 20px;">
         <a href="https://ssmt.app" target="_blank">
-            <img src="<?php echo SSMT_PLUGIN_URL . 'assets/images/ssmt_mini_banner.png'; ?>" alt="Puzzlers Labs Logo" style="max-width: 600px;">
+            <img src="<?php echo esc_url(SSMT_PLUGIN_URL . 'assets/images/ssmt_mini_banner.png'); ?>" alt="Puzzlers Labs Logo" style="max-width: 600px;">
         </a>
     </div>
 
@@ -61,7 +61,7 @@ $current_sha      = ssmt_feedback_compute_plugin_sha();
                             <span style="color: red;">
                                 &times;
                             </span>
-                            <a href="<?php echo $plugins_page_url; ?>">Update available</a>
+                            <a href="<?php echo esc_url($plugins_page_url); ?>">Update available</a>
                         </span>
                         <span id="update-not-available" class="d-none">
                             <span style="color: green;">

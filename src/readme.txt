@@ -1,11 +1,11 @@
-=== Stupid Simple Meta Tags ===
+=== Stupid Simple Meta Tags (SSMT) ===
 Contributors: puzzlers
 Tags: SEO, Meta Tags, Open Graph, Social Media, Metadata, No-Code, User-Friendly, WordPress, WordPress SEO, Website Optimization, Gutenberg Compatible, Custom Themes, Accessibility, Free Plugin, Page Optimization, Cache Optimization, Global Metadata, Page-Specific Metadata, Simple SEO Tools, Open Source
 Requires at least: 5.2
 Tested up to: 6.7.1
 Stable tag: readme.example.txt
 Requires PHP: 7.2
-License: GPLv3
+License: GNUGPLv3
 License URI: https://github.com/puzzlers-labs/stupid_simple_meta_tags/blob/main/LICENSE
 	
 SSMT is the ultimate WordPress plugin for hassle-free metadata control. Add and manage meta tags globally or for specific pages with a single click. Boost your site's search engine ranking and social media presence effortlessly. Perfect for non-technical users and businesses looking for a streamlined SEO solution.

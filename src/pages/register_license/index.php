@@ -25,11 +25,11 @@ function ssmt_register_license_init() {
 
     add_filter('admin_footer_text', 'add_ssmt_footer_message');
 
-    wp_enqueue_style('common-css', SSMT_PLUGIN_URL . 'assets/css/common.css');
-    wp_enqueue_style('loading-spinner-css', SSMT_PLUGIN_URL . 'assets/css/loading_spinner.css');
-    wp_enqueue_style('register-license-css', SSMT_PLUGIN_URL . 'assets/css/register_license.css');
+    wp_enqueue_style('common-css', SSMT_PLUGIN_URL . 'assets/css/common.css', array(), SSMT_VERSION);
+    wp_enqueue_style('loading-spinner-css', SSMT_PLUGIN_URL . 'assets/css/loading_spinner.css', array(), SSMT_VERSION);
+    wp_enqueue_style('register-license-css', SSMT_PLUGIN_URL . 'assets/css/register_license.css', array(), SSMT_VERSION);
 
-    wp_enqueue_script('register-license-js', SSMT_PLUGIN_URL . 'assets/js/register_license.js');
+    wp_enqueue_script('register-license-js', SSMT_PLUGIN_URL . 'assets/js/register_license.js', array(), SSMT_VERSION);
     wp_localize_script('register-license-js', 'ssmt_register_license_data', array(
         'isLicensed'           => ssmt_is_licensed() ? 'true' : 'false',
         'registerLicenseURL'   => $register_license_url ?? '',
@@ -39,16 +39,12 @@ function ssmt_register_license_init() {
         'registerLicenseWPURL' => admin_url('admin.php?page=ssmt_register_license&return_url=' . $return_url),
     ));
 
-    echo ssmt_register_license_render($register_license_url);
+    ssmt_register_license_render($register_license_url);
 }
 
 function ssmt_register_license_render($register_license_url) {
-    ob_start();
+    // This variable is used in the template file.
     require SSMT_PLUGIN_PATH . 'pages/register_license/template/index.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
 }
 
 function ssmt_license_key_sanatizer($license_key) {

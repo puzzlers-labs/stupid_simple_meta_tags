@@ -3,79 +3,47 @@
 function ssmt_settings_init() {
     add_filter('admin_footer_text', 'add_ssmt_footer_message');
 
-    wp_enqueue_style('common-css', SSMT_PLUGIN_URL . 'assets/css/common.css');
+    wp_enqueue_style('common-css', SSMT_PLUGIN_URL . 'assets/css/common.css', array(), SSMT_VERSION);
 
-    echo ssmt_settings_render();
+    ssmt_settings_render();
 }
 
 //Wordpress uses echo approach instead of returning the template strings. Therefore need to parse the buffer.
 function ssmt_settings_render() {
-    wp_enqueue_script('settings-js', SSMT_PLUGIN_URL . 'assets/js/basic_configuration.js');
-    wp_enqueue_style('settings-css', SSMT_PLUGIN_URL . 'assets/css/basic_configuration.css');
+    wp_enqueue_script('settings-js', SSMT_PLUGIN_URL . 'assets/js/basic_configuration.js', array(), SSMT_VERSION);
+    wp_enqueue_style('settings-css', SSMT_PLUGIN_URL . 'assets/css/basic_configuration.css', array(), SSMT_VERSION);
 
-    ob_start();
     require SSMT_PLUGIN_PATH . 'pages/settings/template/index.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
 }
 
 function ssmt_settings_tab_basic_configuration_render() {
-    ob_start();
     require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
 }
 
 function ssmt_settings_tab_basic_configuration_meta_tags_table_row_render($ssmt_settings_tab_basic_configuration_meta_tags_table_row_render_config = []) {
-    ob_start();
+    // The variables are used in the template file.
     require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_row.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
 }
 
 function ssmt_settings_tab_basic_configuration_meta_tags_table_column_titles_render() {
-    ob_start();
+    // The variables are used in the template file.
     require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_column_titles.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
 }
 
 function ssmt_settings_tab_basic_configuration_meta_tags_table_count_render($ssmt_settings_tab_basic_configuration_meta_tags_table_count) {
-    ob_start();
+    // The variables are used in the template file.
     require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_count.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
 }
 
-function ssmt_settings_tab_basic_configuration_meta_tags_table_bulk_actions() {
-    ob_start();
+function ssmt_settings_tab_basic_configuration_meta_tags_table_bulk_actions_render() {
     require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_basic_configuration/meta_tags_table_bulk_actions.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
 }
 
 function ssmt_settings_tab_advanced_configuration_render() {
-    wp_enqueue_script('settings-js', SSMT_PLUGIN_URL . 'assets/js/advanced_configuration.js');
-    wp_enqueue_style('settings-css', SSMT_PLUGIN_URL . 'assets/css/advanced_configuration.css');
+    wp_enqueue_script('settings-js', SSMT_PLUGIN_URL . 'assets/js/advanced_configuration.js', array(), SSMT_VERSION);
+    wp_enqueue_style('settings-css', SSMT_PLUGIN_URL . 'assets/css/advanced_configuration.css', array(), SSMT_VERSION);
 
-    ob_start();
     require SSMT_PLUGIN_PATH . 'pages/settings/template/components/tab_advanced_configuration.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
 }
 
 

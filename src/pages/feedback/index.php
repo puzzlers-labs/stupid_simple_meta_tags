@@ -3,25 +3,19 @@
 function ssmt_feedback_init() {
     add_filter('admin_footer_text', 'add_ssmt_footer_message');
 
-    wp_enqueue_style('common-css', SSMT_PLUGIN_URL . 'assets/css/common.css');
-    wp_enqueue_style('feedback-css', SSMT_PLUGIN_URL . 'assets/css/feedback.css');
+    wp_enqueue_style('common-css', SSMT_PLUGIN_URL . 'assets/css/common.css', array(), SSMT_VERSION);
+    wp_enqueue_style('feedback-css', SSMT_PLUGIN_URL . 'assets/css/feedback.css', array(), SSMT_VERSION);
 
-    wp_enqueue_script('feedback-js', SSMT_PLUGIN_URL . 'assets/js/feedback.js');
+    wp_enqueue_script('feedback-js', SSMT_PLUGIN_URL . 'assets/js/feedback.js', array(), SSMT_VERSION);
     wp_localize_script('feedback-js', 'feedback_data', array(
         'adminAjaxURL'  => admin_url('admin-ajax.php'),
     ));
 
-    echo ssmt_feedback_render();
+    ssmt_feedback_render();
 }
 
 function ssmt_feedback_render() {
-    //Wordpress uses echo approach instead of returning the template strings. Therefore need to parse the buffer.
-    ob_start();
     require SSMT_PLUGIN_PATH . 'pages/feedback/template.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
 }
 
 function ssmt_linux_compatible_file_sort($a, $b) {
@@ -71,13 +65,13 @@ function ssmt_feedback_get_files_list($directory) {
 }
 
 function get_sha_for_version($version_to_check) {
-    $fileContent = file_get_contents('https://raw.githubusercontent.com/puzzlers-labs/stupid_simple_meta_tags/refs/heads/main/checksums.txt');
+    $fileContent = wp_remote_get('https://raw.githubusercontent.com/puzzlers-labs/stupid_simple_meta_tags/refs/heads/main/checksums.txt');
 
-    if ($fileContent === false) {
+    if (!$fileContent || $fileContent === false || !isset($fileContent['body'])) {
         return '';
     }
 
-    $lines = explode("\n", $fileContent);
+    $lines = explode("\n", $fileContent['body']);
     foreach ($lines as $single_line) {
         // Skip empty lines, row breaker lines and lines that have the header information
         if (trim($single_line) === '' || strpos($single_line, 'VERSION') !== false || strpos($single_line, '=') !== false) {

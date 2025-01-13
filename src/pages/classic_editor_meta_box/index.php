@@ -1,12 +1,7 @@
 <?php
 
 function ssmt_classic_editor_meta_box_render() {
-    ob_start();
     require SSMT_PLUGIN_PATH . 'pages/classic_editor_meta_box/template/index.php';
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    echo $html;
 }
 
 function ssmt_classic_editor_save_meta_tags() {

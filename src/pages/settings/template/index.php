@@ -6,8 +6,8 @@
         <a href="?page=ssmt_settings&tab=advanced_configuration" class="nav-tab <?php echo $active_tab === 'advanced_configuration' ? 'nav-tab-active' : ''; ?>">Advanced Configuration</a>
     </h2>
     <?php if ($active_tab === 'advanced_configuration'): ?>
-        <?php echo ssmt_settings_tab_advanced_configuration_render(); ?>
+        <?php ssmt_settings_tab_advanced_configuration_render(); ?>
     <?php else: ?>
-        <?php echo ssmt_settings_tab_basic_configuration_render(); ?>
+        <?php ssmt_settings_tab_basic_configuration_render(); ?>
     <?php endif; ?>
 </div>

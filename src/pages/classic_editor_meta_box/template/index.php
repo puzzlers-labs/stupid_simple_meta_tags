@@ -15,7 +15,7 @@ $registration_url = $registration_url . '&return_url=' . $post_edit_url;
     <div class="frosted-overlay" style="position: absolute; top: -6px; left: 0; background: rgba(0, 0, 0, 0.1); backdrop-filter: blur(2px); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; padding: 1em; gap: 1em; height: calc(100% - 20px); width: calc(100% - 26px);">
         <div class="overlay-message" style="color: red; background-color: rgba(255, 255, 255, 0.9); padding: 4px; border-radius: 8px; max-width: 90%; width: auto;">
             <p style="color: red; text-align: center; margin: 0px;">A license is required to manage advanced configuration features.</p>
-        </div><a href="<?php echo $registration_url; ?>" style="background-color: rgb(0, 124, 186); color: white; padding: 10px 20px; text-decoration: none; border-radius: 2px; font-weight: bold; display: inline-block; text-align: center; cursor: pointer;">Register for free</a>
+        </div><a href="<?php echo esc_url($registration_url); ?>" style="background-color: rgb(0, 124, 186); color: white; padding: 10px 20px; text-decoration: none; border-radius: 2px; font-weight: bold; display: inline-block; text-align: center; cursor: pointer;">Register for free</a>
     </div>
 <?php endif; ?>
 <table class="ssmt-meta-tags-list-container" style="width: 100%;" id="ssmt_meta_tags_table">
@@ -33,12 +33,12 @@ $registration_url = $registration_url . '&return_url=' . $post_edit_url;
     </thead>
     <tbody>
         <?php foreach ($meta_tags as $idx => $single_meta_tag) : ?>
-            <tr data-row-id="<?php echo $idx; ?>">
+            <tr data-row-id="<?php echo esc_attr($idx); ?>">
                 <td>
-                    <input type="text" size="4" placeholder="Order" value="<?php echo esc_attr($single_meta_tag['order']); ?>" name="ssmt_post_meta_classic_editor[<?php echo $idx; ?>][order]" style="width: 100%;" />
+                    <input type="text" size="4" placeholder="Order" value="<?php echo esc_attr($single_meta_tag['order']); ?>" name="ssmt_post_meta_classic_editor[<?php echo esc_attr($idx); ?>][order]" style="width: 100%;" />
                 </td>
                 <td>
-                    <input type="text" placeholder="Value" value="<?php echo esc_attr($single_meta_tag['value']); ?>" style="width: 100%;" name="ssmt_post_meta_classic_editor[<?php echo $idx; ?>][value]" />
+                    <input type="text" placeholder="Value" value="<?php echo esc_attr($single_meta_tag['value']); ?>" style="width: 100%;" name="ssmt_post_meta_classic_editor[<?php echo esc_attr($idx); ?>][value]" />
                 </td>
                 <td>
                     <button type="button" class="ssmt-delete-row" style="background: none; border: none; cursor: pointer;"><span class="dashicons dashicons-trash"></span></button>

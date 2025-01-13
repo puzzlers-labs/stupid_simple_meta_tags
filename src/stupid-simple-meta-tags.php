@@ -13,6 +13,6 @@ require plugin_dir_path(__FILE__) . 'index.php';
  * Author:             Puzzlers Labs Pvt. Ltd.
  * Text Domain:        ssmt
  * Author URI:         https://puzzlers-labs.com/
- * License:            GPLv3 License
+ * License:            GNUGPLv3
  * License URI:        https://github.com/puzzlers-labs/stupid_simple_meta_tags/blob/main/LICENSE
  */
