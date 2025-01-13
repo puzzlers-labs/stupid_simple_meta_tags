@@ -25,9 +25,6 @@ To get started with SSMT (Stupid Simple Meta Tags), install and activate the plu
 
 == Changelog ==
 
-= 1.0.0 - 2025-01-13 =
-
-* Test
 = 0.4.3 - 2025-01-13 =
 
 "**Full Changelog**: https://github.com/puzzlers-labs/stupid_simple_meta_tags/compare/v0.4.2...v0.4.3"
