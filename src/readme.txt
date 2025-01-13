@@ -1,6 +1,6 @@
 === Stupid Simple Meta Tags (SSMT) ===
 Contributors: puzzlers
-Tags: SEO, Meta Tags, Open Graph, Social Media, Metadata, No-Code, User-Friendly, WordPress, WordPress SEO, Website Optimization, Gutenberg Compatible, Custom Themes, Accessibility, Free Plugin, Page Optimization, Cache Optimization, Global Metadata, Page-Specific Metadata, Simple SEO Tools, Open Source
+Tags: SEO, Meta Tags, Social Media, Metadata, Page-Specific Metadata
 Requires at least: 5.2
 Tested up to: 6.7.1
 Stable tag: readme.example.txt
@@ -28,7 +28,6 @@ To get started with SSMT (Stupid Simple Meta Tags), install and activate the plu
 = 1.0.0 - 2025-01-13 =
 
 * Test
-= 0.4.2 - 2025-01-12 =
+= 0.4.3 - 2025-01-13 =
 
-"Testing auto changelog
-**Full Changelog**: https://github.com/puzzlers-labs/stupid_simple_meta_tags/compare/v0.4.1...v0.4.2"
+"**Full Changelog**: https://github.com/puzzlers-labs/stupid_simple_meta_tags/compare/v0.4.2...v0.4.3"
