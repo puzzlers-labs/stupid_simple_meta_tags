@@ -3,7 +3,7 @@ Contributors: puzzlers
 Tags: SEO, Meta Tags, Social Media, Metadata, Page-Specific Metadata
 Requires at least: 5.2
 Tested up to: 6.7.1
-Stable tag: readme.example.txt
+Stable tag: 0.4.3
 Requires PHP: 7.2
 License: GNUGPLv3
 License URI: https://github.com/puzzlers-labs/stupid_simple_meta_tags/blob/main/LICENSE
