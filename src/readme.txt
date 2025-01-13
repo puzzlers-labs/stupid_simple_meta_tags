@@ -3,7 +3,7 @@ Contributors: puzzlers
 Tags: SEO, Meta Tags, Social Media, Metadata, Page-Specific Metadata
 Requires at least: 5.2
 Tested up to: 6.7.1
-Stable tag: 0.4.3
+Stable tag: 1.0.0
 Requires PHP: 7.2
 License: GNUGPLv3
 License URI: https://github.com/puzzlers-labs/stupid_simple_meta_tags/blob/main/LICENSE
@@ -25,6 +25,15 @@ To get started with SSMT (Stupid Simple Meta Tags), install and activate the plu
 
 == Changelog ==
 
+= 1.0.0 - 2025-01-13 =
+
+* Test
 = 0.4.3 - 2025-01-13 =
 
 "**Full Changelog**: https://github.com/puzzlers-labs/stupid_simple_meta_tags/compare/v0.4.2...v0.4.3"
+
+= 1.0.0 - 2025-01-13 =
+
+"Initial Release.
+
+**Full Changelog**: https://github.com/puzzlers-labs/stupid_simple_meta_tags/commits/v1.0.0"

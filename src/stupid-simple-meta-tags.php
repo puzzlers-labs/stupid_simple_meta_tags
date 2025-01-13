@@ -9,7 +9,7 @@ require plugin_dir_path(__FILE__) . 'index.php';
  * Plugin Logo:        https://puzzlers-labs.com/assets/images/logo/Logo%20cropped.png
  * Requires at least:  5.2
  * Requires PHP:       7.2
- * Version:            0.4.3
+ * Version:            1.0.0
  * Author:             Puzzlers Labs Pvt. Ltd.
  * Text Domain:        ssmt
  * Author URI:         https://puzzlers-labs.com/
