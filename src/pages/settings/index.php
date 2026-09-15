@@ -1,7 +1,8 @@
 <?php
+if (!defined('ABSPATH')) exit;
 
 function ssmt_settings_init() {
-    add_filter('admin_footer_text', 'add_ssmt_footer_message');
+    add_filter('admin_footer_text', 'ssmt_add_footer_message');
 
     wp_enqueue_style('common-css', SSMT_PLUGIN_URL . 'assets/css/common.css', array(), SSMT_VERSION);
 
@@ -161,7 +162,7 @@ function ssmt_basic_configuration_meta_configuration_list_sanitize($input) {
         $order  = intval($row['order'] ?? 0);
         $type   = sanitize_text_field($row['type'] ?? '');
         $key    = sanitize_text_field($row['key'] ?? '');
-        $value  = str_replace(["\'", "'", '\"', '\\"', '\\\"', '\\\\"', '\\\\\"'], '"', $row['value'] ?? '');
+        $value  = str_replace(["\'"  , "'" , '\"', '\\"', '\\\"', '\\\\"', '\\\\\"'], '"', $row['value'] ?? '');
         $value  = wp_kses($value, $direct_type_allow_tags);
 
         return [
@@ -179,16 +180,11 @@ function ssmt_basic_configuration_meta_configuration_list_sanitize($input) {
 
 function ssmt_advanced_settings_sanitize($input) {
     $sanitized_data = [];
-    $sanitized_data['ssmt_advanced_settings_show_ssmt_branding']            = isset($input['ssmt_advanced_settings_show_ssmt_branding'])            ? true : false;
-    $sanitized_data['ssmt_advanced_settings_enable_caching']                = isset($input['ssmt_advanced_settings_enable_caching'])                ? true : false;
-    $sanitized_data['ssmt_advanced_settings_enable_gutenberg_plugin']       = isset($input['ssmt_advanced_settings_enable_gutenberg_plugin'])       ? true : false;
-    $sanitized_data['ssmt_advanced_settings_enable_classic_editor_plugin']  = isset($input['ssmt_advanced_settings_enable_classic_editor_plugin'])  ? true : false;
-    $sanitized_data['ssmt_advanced_settings_enable_custom_fields']          = isset($input['ssmt_advanced_settings_enable_custom_fields'])          ? true : false;
-
-    if (!ssmt_is_licensed()) {
-        $sanitized_data['ssmt_advanced_settings_show_ssmt_branding'] = true;
-        $sanitized_data['ssmt_advanced_settings_enable_caching']     = false;
-    }
+    $sanitized_data['ssmt_advanced_settings_show_ssmt_branding']           = isset($input['ssmt_advanced_settings_show_ssmt_branding'])           ? true : false;
+    $sanitized_data['ssmt_advanced_settings_enable_caching']               = isset($input['ssmt_advanced_settings_enable_caching'])               ? true : false;
+    $sanitized_data['ssmt_advanced_settings_enable_gutenberg_plugin']      = isset($input['ssmt_advanced_settings_enable_gutenberg_plugin'])      ? true : false;
+    $sanitized_data['ssmt_advanced_settings_enable_classic_editor_plugin'] = isset($input['ssmt_advanced_settings_enable_classic_editor_plugin']) ? true : false;
+    $sanitized_data['ssmt_advanced_settings_enable_custom_fields']         = isset($input['ssmt_advanced_settings_enable_custom_fields'])         ? true : false;
 
     return $sanitized_data;
 }
