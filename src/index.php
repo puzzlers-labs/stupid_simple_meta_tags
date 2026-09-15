@@ -1,8 +1,5 @@
 <?php
-define('WP_DEBUG', true);
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+if (!defined('ABSPATH')) exit;
 
 // Only load the plugin if it is running in a Wordpress environment.
 if (!defined('WPINC')) {

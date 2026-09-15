@@ -1,4 +1,5 @@
 <?php
+if (!defined('ABSPATH')) exit;
 
 define('SSMT_VERSION', '1.0.0');
 
