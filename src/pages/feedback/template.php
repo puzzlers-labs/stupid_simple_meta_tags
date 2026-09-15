@@ -2,6 +2,17 @@
 if (!defined('ABSPATH')) exit;
 
 $plugins_page_url = admin_url('plugins.php');
+$current_sha      = ssmt_feedback_compute_plugin_sha();
+
+// Use WordPress core's own update transient — no remote call needed from our code.
+$update_available = false;
+$latest_version   = SSMT_VERSION;
+$plugin_basename  = plugin_basename(SSMT_PLUGIN_FILE);
+$update_plugins   = get_site_transient('update_plugins');
+if (isset($update_plugins->response[$plugin_basename])) {
+    $update_available = true;
+    $latest_version   = $update_plugins->response[$plugin_basename]->new_version;
+}
 ?>
 <div class="wrap">
     <div style="text-align: center; margin-bottom: 20px;">
@@ -30,7 +41,22 @@ $plugins_page_url = admin_url('plugins.php');
         <tbody>
             <tr>
                 <td><strong>Plugin Version:</strong></td>
-                <td><?php echo esc_html(SSMT_VERSION); ?></td>
+                <td>
+                    <?php echo esc_html(SSMT_VERSION); ?>
+                    <?php if ($update_available) : ?>
+                        <span style="color: red; margin-left: 5px;">&times;</span>
+                        <a href="<?php echo esc_url($plugins_page_url); ?>">
+                            <i>(Update available: <?php echo esc_html($latest_version); ?>)</i>
+                        </a>
+                    <?php else : ?>
+                        <span style="color: green; margin-left: 5px;">&#10003;</span>
+                        <span><i>(You have the latest version)</i></span>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>SHA:</strong></td>
+                <td><?php echo esc_html($current_sha); ?></td>
             </tr>
             <tr>
                 <td><strong>License Status:</strong></td>
