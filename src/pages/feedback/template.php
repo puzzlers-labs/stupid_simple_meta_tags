@@ -3,8 +3,9 @@ if (!defined('ABSPATH')) exit;
 
 $plugins_page_url = admin_url('plugins.php');
 $current_sha      = ssmt_feedback_compute_plugin_sha();
+$integrity_status = ssmt_feedback_verify_plugin_integrity();
 
-// Use WordPress core's own update transient — no remote call needed from our code.
+// Use WordPress core's update transient — no remote call from our code.
 $update_available = false;
 $latest_version   = SSMT_VERSION;
 $plugin_basename  = plugin_basename(SSMT_PLUGIN_FILE);
@@ -21,7 +22,6 @@ if (isset($update_plugins->response[$plugin_basename])) {
         </a>
     </div>
 
-    <!-- Links Section -->
     <div style="text-align: center; margin-bottom: 30px;">
         <p>
             <a href="mailto:hello@ssmt.app">Contact</a> |
@@ -31,12 +31,9 @@ if (isset($update_plugins->response[$plugin_basename])) {
         </p>
     </div>
 
-    <!-- Technical Information -->
     <table class="widefat striped">
         <thead>
-            <tr>
-                <th colspan="2">Technical Information</th>
-            </tr>
+            <tr><th colspan="2">Technical Information</th></tr>
         </thead>
         <tbody>
             <tr>
@@ -55,8 +52,28 @@ if (isset($update_plugins->response[$plugin_basename])) {
                 </td>
             </tr>
             <tr>
-                <td><strong>SHA:</strong></td>
-                <td><?php echo esc_html($current_sha); ?></td>
+                <td><strong>Plugin Integrity:</strong></td>
+                <td>
+                    <?php if ($integrity_status === 'verified') : ?>
+                        <span style="color: green;">Verified</span>
+                        <span style="color: green; margin-left: 5px;">&#10003;</span>
+                    <?php elseif ($integrity_status === 'unavailable') : ?>
+                        <span style="color: gray;">Unable to verify</span>
+                        <span style="color: gray; font-style: italic; margin-left: 5px;">(Plugin not yet listed on WordPress.org)</span>
+                    <?php else : ?>
+                        <span style="color: red;">Modified files detected</span>
+                        <span style="color: red; margin-left: 5px;">&times;</span>
+                        <ul style="margin-top: 5px;">
+                            <?php foreach ($integrity_status as $modified_file) : ?>
+                                <li><code><?php echo esc_html($modified_file); ?></code></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Local SHA:</strong></td>
+                <td><code><?php echo esc_html($current_sha); ?></code></td>
             </tr>
             <tr>
                 <td><strong>License Status:</strong></td>
