@@ -1,7 +1,13 @@
 <?php
-$meta_configuration_list        = $_POST['ssmt_basic_configuration_meta_configuration_list'] ?? get_option('ssmt_basic_configuration_meta_configuration_list', []);
-$validation_error_row_indexes   = get_transient('ssmt_basic_configuration_meta_configuration_list_validation_error_row_indexes');
-$validation_error_row_indexes   = is_array($validation_error_row_indexes) ? $validation_error_row_indexes : [];
+if (!defined('ABSPATH')) exit;
+
+if (isset($_POST['ssmt_basic_configuration_meta_configuration_list'])) {
+    $meta_configuration_list = ssmt_basic_configuration_meta_configuration_list_sanitize(wp_unslash($_POST['ssmt_basic_configuration_meta_configuration_list']));
+} else {
+    $meta_configuration_list = get_option('ssmt_basic_configuration_meta_configuration_list', []);
+}
+$validation_error_row_indexes = get_transient('ssmt_basic_configuration_meta_configuration_list_validation_error_row_indexes');
+$validation_error_row_indexes = is_array($validation_error_row_indexes) ? $validation_error_row_indexes : [];
 
 delete_transient('ssmt_basic_configuration_meta_configuration_list_validation_error_row_indexes');
 ?>

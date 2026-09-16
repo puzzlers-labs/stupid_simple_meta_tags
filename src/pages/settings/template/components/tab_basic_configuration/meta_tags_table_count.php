@@ -1,3 +1,4 @@
+<?php if (!defined('ABSPATH')) exit; ?>
 <div class="tablenav-pages one-page">
     <span class="displaying-num">
         <span class="total-row-count">

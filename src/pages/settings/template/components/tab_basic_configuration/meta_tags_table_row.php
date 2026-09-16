@@ -1,4 +1,6 @@
 <?php
+if (!defined('ABSPATH')) exit;
+
 $is_template        = $ssmt_settings_tab_basic_configuration_meta_tags_table_row_render_config['is_template'] ?? false;
 $row_class          = $ssmt_settings_tab_basic_configuration_meta_tags_table_row_render_config['row_class'] ?? 'inactive';
 if ($is_template) {
@@ -7,7 +9,7 @@ if ($is_template) {
 $index              = $ssmt_settings_tab_basic_configuration_meta_tags_table_row_render_config['index'] ?? 0;
 $form_data          = $ssmt_settings_tab_basic_configuration_meta_tags_table_row_render_config['form_data'] ?? [];
 $meta_types         = ['name', 'property', 'direct'];
-$meta_value         = str_replace(["\'", "'", '\"', '\\"', '\\\"', '\\\\"', '\\\\\"'], '"', $form_data['value'] ?? '');;
+$meta_value         = str_replace(["\'"  , "'" , '\"', '\\"', '\\\"', '\\\\"', '\\\\\"'], '"', $form_data['value'] ?? '');;
 ?>
 
 <tr class="meta-tags-list-row <?php echo esc_attr($row_class); ?>">

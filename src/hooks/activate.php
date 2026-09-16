@@ -1,4 +1,5 @@
 <?php
+if (!defined('ABSPATH')) exit;
 
 /**
  * Activate hook for the plugin.

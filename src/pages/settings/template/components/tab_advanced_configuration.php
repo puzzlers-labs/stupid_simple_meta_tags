@@ -1,18 +1,11 @@
 <?php
-$meta_configuration_list        = $_POST['ssmt_basic_configuration_meta_configuration_list'] ?? get_option('ssmt_basic_configuration_meta_configuration_list', []);
-$validation_error_row_indexes   = get_transient('ssmt_basic_configuration_meta_configuration_list_validation_error_row_indexes');
-$validation_error_row_indexes   = is_array($validation_error_row_indexes) ? $validation_error_row_indexes : [];
-$is_licesned                    = ssmt_is_licensed();
-$current_page_url               = 'admin.php?page=ssmt_settings&tab=advanced_configuration';
-$current_page_url               = urlencode($current_page_url);
+if (!defined('ABSPATH')) exit;
+
+$validation_error_row_indexes = get_transient('ssmt_basic_configuration_meta_configuration_list_validation_error_row_indexes');
+$validation_error_row_indexes = is_array($validation_error_row_indexes) ? $validation_error_row_indexes : [];
 ?>
 <div>
-    <?php if (!$is_licesned): ?>
-        <div class="notice notice-warning is-dismissible">
-            <p><strong>Unlicensed:</strong> Some advanced features are disabled. <a href="<?php echo esc_url(admin_url('admin.php?page=ssmt_register_license&return_url=' . $current_page_url)); ?>">Register for free</a> to enable full functionality.</p>
-        </div>
-    <?php endif; ?>
-    <p>The Advanced Configuration section is for users who want more precise control over their site's metadata. You’ll find checkboxes to enable features like the Gutenberg editor, classic editor, or custom page tags. These options let you decide exactly which tags to show for each page or post, giving you greater flexibility and customization.</p>
+    <p>The Advanced Configuration section is for users who want more precise control over their site's metadata. You'll find checkboxes to enable features like the Gutenberg editor, classic editor, or custom page tags. These options let you decide exactly which tags to show for each page or post, giving you greater flexibility and customization.</p>
     <form method="post" action="">
         <?php wp_nonce_field('ssmt_advanced_configuration', 'ssmt_advanced_configuration_nonce'); ?>
 
@@ -22,7 +15,7 @@ $current_page_url               = urlencode($current_page_url);
                     <label for="ssmt_advanced_settings_show_ssmt_branding">Show SSMT Branding</label>
                 </th>
                 <td class="p-8 ps-0">
-                    <input type="checkbox" name="ssmt_advanced_settings_show_ssmt_branding" id="ssmt_advanced_settings_show_ssmt_branding" value="1" <?php checked(get_option('ssmt_advanced_settings_show_ssmt_branding')); ?> <?php if (!$is_licesned): ?>disabled<?php endif; ?> />
+                    <input type="checkbox" name="ssmt_advanced_settings_show_ssmt_branding" id="ssmt_advanced_settings_show_ssmt_branding" value="1" <?php checked(get_option('ssmt_advanced_settings_show_ssmt_branding')); ?> />
                 </td>
             </tr>
             <tr>
@@ -30,7 +23,7 @@ $current_page_url               = urlencode($current_page_url);
                     <label for="ssmt_advanced_settings_enable_caching">Enable Caching</label>
                 </th>
                 <td class="p-8 ps-0">
-                    <input type="checkbox" name="ssmt_advanced_settings_enable_caching" id="ssmt_advanced_settings_enable_caching" value="1" <?php checked(get_option('ssmt_advanced_settings_enable_caching')); ?> <?php if (!$is_licesned): ?>disabled<?php endif; ?> />
+                    <input type="checkbox" name="ssmt_advanced_settings_enable_caching" id="ssmt_advanced_settings_enable_caching" value="1" <?php checked(get_option('ssmt_advanced_settings_enable_caching')); ?> />
                 </td>
             </tr>
             <tr>
